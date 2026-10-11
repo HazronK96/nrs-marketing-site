@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NRS — 60s Showcase (screen-record this)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{--brand:#6d5efc;--brand2:#22d3ee;--ink:#0b1020}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+  html,body{height:100%;overflow:hidden;background:#070b17;color:#fff}
+  /* 16:9 stage, scales to viewport */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .frame{position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);
+    background:radial-gradient(900px 500px at 80% -10%,rgba(109,94,252,.25),transparent 60%),
+               radial-gradient(700px 500px at 0% 110%,rgba(34,211,238,.2),transparent 55%),#070b17;
+    overflow:hidden}
+  .scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:6%;
+    opacity:0;transform:translateY(26px) scale(.98);
+    animation:scene 60s linear infinite}
+  .scene .inner{max-width:80%}
+  .eyebrow{font-size:1.1vw;letter-spacing:.3em;text-transform:uppercase;color:var(--brand2);font-weight:700;margin-bottom:2vh}
+  h1{font-size:5.4vw;font-weight:900;line-height:1.05;letter-spacing:-.02em}
+  h2{font-size:4vw;font-weight:800;line-height:1.1;margin-bottom:1.6vh}
+  .grad{background:linear-gradient(120deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{font-size:1.9vw;color:#c3cbf0;margin-top:2vh;line-height:1.5}
+  .logo{width:9vw;height:9vw;border-radius:2.2vw;background:linear-gradient(135deg,var(--brand),var(--brand2));
+    display:grid;place-items:center;font-size:5vw;font-weight:900;margin:0 auto 3vh;box-shadow:0 2vh 5vh -1vh rgba(109,94,252,.6)}
+  .cats{display:flex;gap:1vw;justify-content:center;flex-wrap:wrap;margin-top:3vh}
+  .chip{font-size:1.5vw;font-weight:700;padding:1vh 2vw;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+  .chip.on{background:linear-gradient(120deg,var(--brand),var(--brand2));border-color:transparent}
+  .keys{text-align:left;max-width:46vw;margin:3vh auto 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1.4vw;padding:3vh 3vw}
+  .keys .k-title{color:var(--brand2);font-weight:800;font-size:1.6vw;margin-bottom:1.6vh}
+  .keys li{font-size:1.5vw;color:#dfe4fb;margin:1vh 0 1vh 2vw}
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;width:78%;margin:0 auto}
+  .feat .c{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1.4vw;padding:3vh 1.5vw}
+  .feat .ic{font-size:3vw}
+  .feat h3{font-size:1.6vw;margin:1.2vh 0 .6vh}
+  .feat small{font-size:1.2vw;color:#aeb6e0}
+  .src{display:flex;gap:1.2vw;justify-content:center;flex-wrap:wrap;margin-top:3vh}
+  .src span{font-size:1.4vw;color:#c3cbf0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:1vh 1.6vw;border-radius:999px}
+  .url{font-size:2.2vw;font-weight:800;color:#fff;margin-top:3vh}
+  .tag27{position:absolute;top:4vh;left:4vw;font-size:1.1vw;font-weight:700;letter-spacing:.2em;color:#8591bf;z-index:5}
+  .progress{position:absolute;bottom:0;left:0;height:.7vh;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;animation:bar 60s linear infinite;z-index:5}
+  .hint{position:absolute;bottom:2.4vh;right:3vw;font-size:1vw;color:#5c6690;z-index:5}
+
+  /* ---- Scene timing: 6 scenes across a 60s loop (10s each) ---- */
+  @keyframes bar{from{width:0}to{width:100%}}
+  /* each scene visible for its 10s window, with fade in/out */
+  .s1{animation-delay:0s}.s2{animation-delay:10s}.s3{animation-delay:20s}
+  .s4{animation-delay:30s}.s5{animation-delay:40s}.s6{animation-delay:50s}
+  @keyframes scene{
+    0%   {opacity:0;transform:translateY(26px) scale(.98)}
+    1.5% {opacity:1;transform:translateY(0) scale(1)}
+    15%  {opacity:1;transform:translateY(0) scale(1)}
+    16.6%{opacity:0;transform:translateY(-20px) scale(.99)}
+    100% {opacity:0}
+  }
+  .chip,.feat .c,.keys li{animation:pop .6s ease both}
+  @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame">
+    <div class="tag27">GROUP 27 · FINAL YEAR PROJECT</div>
+
+    <!-- Scene 1 — Title (0–10s) -->
+    <section class="scene s1"><div class="inner">
+      <div class="logo">N</div>
+      <h1>News Release System</h1>
+      <p class="lead">Game news, <span class="grad">cut to the point.</span></p>
+    </div></section>
+
+    <!-- Scene 2 — The problem (10–20s) -->
+    <section class="scene s2"><div class="inner">
+      <div class="eyebrow">The problem</div>
+      <h2>Gaming news is <span class="grad">scattered &amp; noisy</span></h2>
+      <p class="lead">Dozens of sites. Clickbait headlines. No easy way to know what's real.</p>
+    </div></section>
+
+    <!-- Scene 3 — Categories (20–30s) -->
+    <section class="scene s3"><div class="inner">
+      <div class="eyebrow">One feed, your platform</div>
+      <h2>All your game news in one place</h2>
+      <div class="cats">
+        <span class="chip on">News</span><span class="chip">Nintendo</span>
+        <span class="chip">PlayStation</span><span class="chip">Xbox</span><span class="chip">PC</span>
+      </div>
+    </div></section>
+
+    <!-- Scene 4 — Key points (30–40s) -->
+    <section class="scene s4"><div class="inner">
+      <div class="eyebrow">Read smart</div>
+      <h2>Key points on every story</h2>
+      <div class="keys">
+        <div class="k-title">★ KEY POINTS</div>
+        <ul>
+          <li>Switch 2 Ocarina remake preorder cut by $10</li>
+          <li>Anniversary Zelda hardware lands Oct 29</li>
+          <li>Price guarantee until release day</li>
+        </ul>
+      </div>
+    </div></section>
+
+    <!-- Scene 5 — Features + sources (40–50s) -->
+    <section class="scene s5"><div class="inner">
+      <div class="eyebrow">Built for gamers</div>
+      <h2>Trustworthy &amp; yours</h2>
+      <div class="feat">
+        <div class="c"><div class="ic">🔗</div><h3>Verified sources</h3><small>Linked originals</small></div>
+        <div class="c"><div class="ic">🔖</div><h3>Bookmarks</h3><small>Save for later</small></div>
+        <div class="c"><div class="ic">✍️</div><h3>Create</h3><small>Publish releases</small></div>
+      </div>
+      <div class="src"><span>mashable.com</span><span>imdb.com</span><span>gamingbible.com</span></div>
+    </div></section>
+
+    <!-- Scene 6 — Call to action (50–60s) -->
+    <section class="scene s6"><div class="inner">
+      <div class="logo">N</div>
+      <h2>Press play on the news.</h2>
+      <p class="lead">Try the live News Release System today.</p>
+      <div class="url">fyp-nrs.geyser.host</div>
+    </div></section>
+
+    <div class="progress"></div>
+    <div class="hint">Loops every 60s · screen-record this window at 1920×1080</div>
+  </div>
+</div>
+</body>
+</html>
