@@ -137,6 +137,7 @@ h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
 .cta{background:linear-gradient(135deg,var(--bg),#1a2350);color:#fff;text-align:center}
 .cta-inner h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:900;margin:6px 0}
 .cta-sub{color:#aab2d8;font-size:1.1rem;margin-bottom:34px}
+.team-number{margin-bottom:40px}
 .team-slots{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:36px}
 .member{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:120px}
 .avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;font-weight:800;font-size:1.1rem;margin-bottom:6px}
