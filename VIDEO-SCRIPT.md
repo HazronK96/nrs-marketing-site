@@ -11,7 +11,7 @@ I can't render a video file in this environment, so here's the fastest path to a
 
 **Option A — Record the animated showcase (easiest)**
 1. Open `showcase.html` in a browser, full-screen (press F11), ideally at 1920×1080.
-2. It auto-plays through **6 scenes on a 60-second loop** with a progress bar at the bottom.
+2. It auto-plays through **6 fast-cut scenes on a 36-second loop** (neon arcade theme, PRESS START hook, animated stat counters) with a progress bar at the bottom.
 3. Screen-record one full loop with any recorder: **OBS Studio** (free), Windows **Game Bar** (`Win+G`), macOS **QuickLogo → Cmd+Shift+5**, or Loom.
 4. Record your narration (below) over it, or add it in editing.
 
@@ -26,33 +26,37 @@ Intro + outro from `showcase.html`, real app footage for the middle (categories 
 
 ---
 
-## 2) The 60-second narration script (timed)
+## 2) The 36-second narration script (timed · high-energy)
 
-> Read at a relaxed pace (~150 words/min ≈ 150 words total). Timecodes match the showcase scenes.
+> Punchy, upbeat gamer-trailer tone. Read with energy (~2.5 words/sec). Timecodes match the 6 showcase scenes.
+> **Tip:** add a short "whoosh"/UI-click SFX on each scene transition for extra impact.
 
-| Time | Scene | On-screen | Narration (voiceover) |
-|------|-------|-----------|------------------------|
-| **0:00–0:10** | Title | Logo + "News Release System" | *"Keeping up with gaming news shouldn't feel like a second job. Meet the News Release System."* |
-| **0:10–0:20** | Problem | "Scattered & noisy" | *"Game news is scattered across dozens of sites, buried under clickbait, and it's hard to know what's actually true."* |
-| **0:20–0:30** | Categories | Nintendo / PlayStation / Xbox / PC chips | *"So we built one clean feed. Filter by Nintendo, PlayStation, Xbox or PC — and see everything that matters in one place."* |
-| **0:30–0:40** | Key points | ★ Key points list | *"Every story opens with key points, so you get the whole picture in seconds before you read a single paragraph."* |
-| **0:40–0:50** | Trust + features | Sources + bookmarks + create | *"And every release links back to its original sources — so you can trust it. Bookmark what you love, or publish your own."* |
-| **0:50–1:00** | Call to action | "Press play on the news" + URL | *"The News Release System. Press play on the news. Try it live today."* |
+| Time | Scene | On-screen | Narration (energetic VO) |
+|------|-------|-----------|---------------------------|
+| **0:00–0:06** | Hook / Title | Logo + glitch title + "▶ PRESS START" | *"Press start… on the way you read game news."* |
+| **0:06–0:12** | The hook | "Tired of hunting…?" | *"Too many tabs. Too much clickbait. Not enough time to actually play."* |
+| **0:12–0:19** | One feed | Platform chips light up | *"The News Release System drops it all in one feed — Nintendo, PlayStation, Xbox, PC."* |
+| **0:19–0:26** | Stats | Counters hit 6+ / 3s / 100% | *"Six-plus categories. The key points in three seconds. A hundred percent sourced and legit."* |
+| **0:26–0:31** | Features | Sources · Bookmarks · Create · Trending | *"Verified sources, bookmarks, trending drops — even publish your own."* |
+| **0:31–0:36** | CTA | "PRESS PLAY ON THE NEWS" + URL | *"Press play on the news. Jump in now."* |
 
-**Word count:** ~140 words — comfortably fits 60 seconds with breathing room.
+**Word count:** ~75 words — fits a snappy 36 seconds with room to breathe.
+**No voiceover? ** The on-screen text already tells the whole story — just add music and it works as a silent trailer.
 
 ---
 
-## 3) Storyboard / shot list (for Option B/C with the real app)
+## 3) Storyboard / shot list (for Option B/C with the real app · 36s)
+
+> Keep every shot short and snappy — fast cuts hold a gamer's attention.
 
 | # | Duration | What to show (screen recording) | Movement |
 |---|----------|---------------------------------|----------|
-| 1 | 0:00–0:10 | `showcase.html` title scene (or app home blurred → logo) | Static / gentle zoom-in |
-| 2 | 0:10–0:20 | Fast montage: scroll the home feed quickly | Smooth scroll down |
-| 3 | 0:20–0:30 | Click category tabs: Nintendo → PlayStation → PC | Click each, 2s hold |
-| 4 | 0:30–0:40 | Open one article; highlight the **"Key points"** block | Scroll to Key points, pause |
-| 5 | 0:40–0:50 | Scroll to **"Sources"** list; then show Bookmark + Create nav | Hover/click bookmark |
-| 6 | 0:50–1:00 | `showcase.html` outro scene with URL | Static, fade to logo |
+| 1 | 0:00–0:06 | `showcase.html` title scene (logo + PRESS START) | Quick zoom-punch in |
+| 2 | 0:06–0:12 | Fast scroll through the home feed | Rapid scroll, slight blur |
+| 3 | 0:12–0:19 | Click category tabs: Nintendo → PlayStation → Xbox → PC | Snap-click each, ~1.5s hold |
+| 4 | 0:19–0:26 | Open an article; zoom on the **"Key points"** block | Punch-in on key points |
+| 5 | 0:26–0:31 | **"Sources"** list, then Bookmark + Create nav | Quick cuts between each |
+| 6 | 0:31–0:36 | `showcase.html` outro: PRESS PLAY ON THE NEWS + URL | Hold on logo + URL |
 
 ---
 

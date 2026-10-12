@@ -3,129 +3,197 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NRS — 60s Showcase (screen-record this)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<title>NRS — 36s Showcase (screen-record this)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
 <style>
-  :root{--brand:#6d5efc;--brand2:#22d3ee;--ink:#0b1020}
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
-  html,body{height:100%;overflow:hidden;background:#070b17;color:#fff}
-  /* 16:9 stage, scales to viewport */
-  .stage{position:fixed;inset:0;display:grid;place-items:center}
-  .frame{position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);
-    background:radial-gradient(900px 500px at 80% -10%,rgba(109,94,252,.25),transparent 60%),
-               radial-gradient(700px 500px at 0% 110%,rgba(34,211,238,.2),transparent 55%),#070b17;
-    overflow:hidden}
-  .scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:6%;
-    opacity:0;transform:translateY(26px) scale(.98);
-    animation:scene 60s linear infinite}
-  .scene .inner{max-width:80%}
-  .eyebrow{font-size:1.1vw;letter-spacing:.3em;text-transform:uppercase;color:var(--brand2);font-weight:700;margin-bottom:2vh}
-  h1{font-size:5.4vw;font-weight:900;line-height:1.05;letter-spacing:-.02em}
-  h2{font-size:4vw;font-weight:800;line-height:1.1;margin-bottom:1.6vh}
-  .grad{background:linear-gradient(120deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  p.lead{font-size:1.9vw;color:#c3cbf0;margin-top:2vh;line-height:1.5}
-  .logo{width:9vw;height:9vw;border-radius:2.2vw;background:linear-gradient(135deg,var(--brand),var(--brand2));
-    display:grid;place-items:center;font-size:5vw;font-weight:900;margin:0 auto 3vh;box-shadow:0 2vh 5vh -1vh rgba(109,94,252,.6)}
-  .cats{display:flex;gap:1vw;justify-content:center;flex-wrap:wrap;margin-top:3vh}
-  .chip{font-size:1.5vw;font-weight:700;padding:1vh 2vw;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
-  .chip.on{background:linear-gradient(120deg,var(--brand),var(--brand2));border-color:transparent}
-  .keys{text-align:left;max-width:46vw;margin:3vh auto 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1.4vw;padding:3vh 3vw}
-  .keys .k-title{color:var(--brand2);font-weight:800;font-size:1.6vw;margin-bottom:1.6vh}
-  .keys li{font-size:1.5vw;color:#dfe4fb;margin:1vh 0 1vh 2vw}
-  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;width:78%;margin:0 auto}
-  .feat .c{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1.4vw;padding:3vh 1.5vw}
-  .feat .ic{font-size:3vw}
-  .feat h3{font-size:1.6vw;margin:1.2vh 0 .6vh}
-  .feat small{font-size:1.2vw;color:#aeb6e0}
-  .src{display:flex;gap:1.2vw;justify-content:center;flex-wrap:wrap;margin-top:3vh}
-  .src span{font-size:1.4vw;color:#c3cbf0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:1vh 1.6vw;border-radius:999px}
-  .url{font-size:2.2vw;font-weight:800;color:#fff;margin-top:3vh}
-  .tag27{position:absolute;top:4vh;left:4vw;font-size:1.1vw;font-weight:700;letter-spacing:.2em;color:#8591bf;z-index:5}
-  .progress{position:absolute;bottom:0;left:0;height:.7vh;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;animation:bar 60s linear infinite;z-index:5}
-  .hint{position:absolute;bottom:2.4vh;right:3vw;font-size:1vw;color:#5c6690;z-index:5}
-
-  /* ---- Scene timing: 6 scenes across a 60s loop (10s each) ---- */
-  @keyframes bar{from{width:0}to{width:100%}}
-  /* each scene visible for its 10s window, with fade in/out */
-  .s1{animation-delay:0s}.s2{animation-delay:10s}.s3{animation-delay:20s}
-  .s4{animation-delay:30s}.s5{animation-delay:40s}.s6{animation-delay:50s}
-  @keyframes scene{
-    0%   {opacity:0;transform:translateY(26px) scale(.98)}
-    1.5% {opacity:1;transform:translateY(0) scale(1)}
-    15%  {opacity:1;transform:translateY(0) scale(1)}
-    16.6%{opacity:0;transform:translateY(-20px) scale(.99)}
-    100% {opacity:0}
+  :root{
+    --brand:#8b5cff;      /* electric purple */
+    --brand2:#00e5ff;     /* neon cyan */
+    --hot:#ff2e97;        /* hot pink */
+    --lime:#aaff00;       /* arcade lime */
+    --bg:#05030f;
   }
-  .chip,.feat .c,.keys li{animation:pop .6s ease both}
-  @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+  html,body{height:100%;overflow:hidden;background:#000;color:#fff}
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+
+  /* 16:9 stage that scales to the viewport */
+  .frame{position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);overflow:hidden;
+    background:
+      radial-gradient(1000px 600px at 80% -10%,rgba(139,92,255,.35),transparent 55%),
+      radial-gradient(900px 600px at 0% 110%,rgba(0,229,255,.28),transparent 55%),
+      radial-gradient(600px 400px at 50% 50%,rgba(255,46,151,.12),transparent 60%),
+      var(--bg);
+  }
+  /* animated grid floor */
+  .frame::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(0,229,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,255,.12) 1px,transparent 1px);
+    background-size:4vw 4vw;mask-image:linear-gradient(transparent 40%,#000);animation:scroll-grid 6s linear infinite;z-index:0}
+  @keyframes scroll-grid{to{background-position:0 4vw,4vw 0}}
+  /* scan lines + flicker for that CRT arcade feel */
+  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;
+    background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.22) 2px 3px);mix-blend-mode:overlay;opacity:.5}
+
+  .scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:5%;opacity:0;z-index:5}
+  .scene .inner{max-width:88%;position:relative}
+
+  .kicker{font-family:'Orbitron',sans-serif;font-size:1.1vw;letter-spacing:.42em;text-transform:uppercase;color:var(--brand2);margin-bottom:2.2vh;text-shadow:0 0 14px var(--brand2)}
+  h1{font-family:'Orbitron',sans-serif;font-size:7vw;font-weight:900;line-height:.98;letter-spacing:-.01em}
+  h2{font-family:'Orbitron',sans-serif;font-size:4.6vw;font-weight:800;line-height:1.05}
+  .grad{background:linear-gradient(100deg,var(--brand2),var(--brand),var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hot{color:var(--hot);text-shadow:0 0 18px rgba(255,46,151,.6)}
+  .glow{text-shadow:0 0 24px rgba(139,92,255,.7),0 0 44px rgba(0,229,255,.4)}
+  p.lead{font-size:2vw;color:#cfd6ff;margin-top:2.2vh;line-height:1.45;font-weight:600}
+
+  .logo{width:11vw;height:11vw;border-radius:2.6vw;background:linear-gradient(135deg,var(--brand),var(--brand2));
+    display:grid;place-items:center;font-family:'Orbitron',sans-serif;font-size:6vw;font-weight:900;margin:0 auto 3vh;
+    box-shadow:0 0 6vh var(--brand),inset 0 0 2vh rgba(255,255,255,.25);border:.3vw solid rgba(255,255,255,.25)}
+
+  /* PRESS START badge */
+  .press{display:inline-block;font-family:'Orbitron',sans-serif;font-size:1.5vw;letter-spacing:.3em;
+    color:var(--lime);border:.2vw solid var(--lime);padding:1.4vh 2.4vw;border-radius:999px;margin-top:3.2vh;
+    text-shadow:0 0 12px var(--lime);box-shadow:0 0 24px rgba(170,255,0,.35);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  /* stat counters */
+  .stats{display:flex;gap:4vw;justify-content:center;margin-top:1vh}
+  .stat .n{font-family:'Orbitron',sans-serif;font-size:6vw;font-weight:900;line-height:1}
+  .stat .l{font-size:1.3vw;color:#aeb6e0;letter-spacing:.12em;text-transform:uppercase;margin-top:1vh}
+
+  /* category chips */
+  .cats{display:flex;gap:1.2vw;justify-content:center;flex-wrap:wrap;margin-top:3.5vh}
+  .chip{font-family:'Orbitron',sans-serif;font-size:1.5vw;font-weight:700;padding:1.3vh 2.4vw;border-radius:999px;
+    background:rgba(255,255,255,.06);border:.15vw solid rgba(255,255,255,.2);color:#fff}
+  .chip.on{background:linear-gradient(100deg,var(--brand),var(--brand2));border-color:transparent;box-shadow:0 0 30px rgba(139,92,255,.6)}
+
+  /* feature pills */
+  .feat{display:flex;gap:2vw;justify-content:center;flex-wrap:wrap;margin-top:4vh}
+  .feat .c{background:rgba(255,255,255,.05);border:.15vw solid rgba(255,255,255,.14);border-radius:1.6vw;padding:3vh 2.4vw;min-width:15vw;
+    box-shadow:0 0 0 rgba(0,229,255,0);transition:.3s}
+  .feat .ic{font-size:3.4vw}
+  .feat h3{font-family:'Orbitron',sans-serif;font-size:1.7vw;margin:1.4vh 0 .6vh}
+  .feat small{font-size:1.2vw;color:#aeb6e0}
+
+  .url{font-family:'Orbitron',sans-serif;font-size:2.6vw;font-weight:800;color:#fff;margin-top:3.4vh;letter-spacing:.08em;text-shadow:0 0 20px var(--brand2)}
+
+  .tag27{position:absolute;top:4vh;left:4vw;font-family:'Orbitron',sans-serif;font-size:1vw;letter-spacing:.26em;color:#7f8bd6;z-index:20}
+  .progress{position:absolute;bottom:0;left:0;height:.8vh;width:0;z-index:20;
+    background:linear-gradient(90deg,var(--brand2),var(--brand),var(--hot));box-shadow:0 0 16px var(--brand);
+    animation:bar 36s linear infinite}
+  @keyframes bar{to{width:100%}}
+  .hint{position:absolute;bottom:2.4vh;right:3vw;font-size:.95vw;color:#4a5590;z-index:20}
+
+  /* ============ SCENE TIMING — 6 scenes over a 36s loop ============
+     Scene windows: s1 0-6 | s2 6-12 | s3 12-19 | s4 19-26 | s5 26-31 | s6 31-36 */
+  .s1{animation:sc1 36s linear infinite}
+  .s2{animation:sc2 36s linear infinite}
+  .s3{animation:sc3 36s linear infinite}
+  .s4{animation:sc4 36s linear infinite}
+  .s5{animation:sc5 36s linear infinite}
+  .s6{animation:sc6 36s linear infinite}
+  /* zoom-punch in, hold, snap out */
+  @keyframes sc1{0%{opacity:0;transform:scale(1.15)}2%{opacity:1;transform:scale(1)}15%{opacity:1;transform:scale(1.02)}17%{opacity:0;transform:scale(.9)}100%{opacity:0}}
+  @keyframes sc2{0%,16%{opacity:0;transform:translateX(6vw)}18%{opacity:1;transform:translateX(0)}31%{opacity:1}33%{opacity:0;transform:translateX(-6vw)}100%{opacity:0}}
+  @keyframes sc3{0%,32%{opacity:0;transform:scale(.92)}34%{opacity:1;transform:scale(1)}51%{opacity:1}53%{opacity:0;transform:scale(1.08)}100%{opacity:0}}
+  @keyframes sc4{0%,52%{opacity:0;transform:translateY(5vh)}54%{opacity:1;transform:translateY(0)}70%{opacity:1}72%{opacity:0;transform:translateY(-4vh)}100%{opacity:0}}
+  @keyframes sc5{0%,71%{opacity:0;transform:scale(.92)}73%{opacity:1;transform:scale(1)}84%{opacity:1}86%{opacity:0;transform:scale(1.06)}100%{opacity:0}}
+  @keyframes sc6{0%,85%{opacity:0;transform:scale(1.1)}87%{opacity:1;transform:scale(1)}99%{opacity:1}100%{opacity:0}}
+
+  /* title glitch */
+  .glitch{position:relative;animation:shake .18s steps(2) 3}
+  @keyframes shake{25%{transform:translate(.3vw,-.2vw)}75%{transform:translate(-.3vw,.2vw)}}
+  /* staggered pop for list items / chips */
+  @keyframes pop{from{opacity:0;transform:translateY(1.4vh) scale(.96)}to{opacity:1;transform:none}}
+  .s3 .chip{animation:pop .5s both}
+  .s3 .chip:nth-child(1){animation-delay:.1s}.s3 .chip:nth-child(2){animation-delay:.2s}
+  .s3 .chip:nth-child(3){animation-delay:.3s}.s3 .chip:nth-child(4){animation-delay:.4s}.s3 .chip:nth-child(5){animation-delay:.5s}
+  .s5 .c{animation:pop .5s both}
+  .s5 .c:nth-child(1){animation-delay:.1s}.s5 .c:nth-child(2){animation-delay:.25s}
+  .s5 .c:nth-child(3){animation-delay:.4s}.s5 .c:nth-child(4){animation-delay:.55s}
 </style>
 </head>
 <body>
 <div class="stage">
   <div class="frame">
-    <div class="tag27">GROUP 27 · FINAL YEAR PROJECT</div>
+    <div class="tag27">GROUP 27 · NEWS RELEASE SYSTEM</div>
 
-    <!-- Scene 1 — Title (0–10s) -->
+    <!-- Scene 1 — Hook / Title (0–6s) -->
     <section class="scene s1"><div class="inner">
       <div class="logo">N</div>
-      <h1>News Release System</h1>
-      <p class="lead">Game news, <span class="grad">cut to the point.</span></p>
+      <h1 class="glitch glow">NEWS RELEASE<br>SYSTEM</h1>
+      <div class="press">▶ PRESS START</div>
     </div></section>
 
-    <!-- Scene 2 — The problem (10–20s) -->
+    <!-- Scene 2 — The hook question (6–12s) -->
     <section class="scene s2"><div class="inner">
-      <div class="eyebrow">The problem</div>
-      <h2>Gaming news is <span class="grad">scattered &amp; noisy</span></h2>
-      <p class="lead">Dozens of sites. Clickbait headlines. No easy way to know what's real.</p>
+      <div class="kicker">Attention, gamers</div>
+      <h2>Tired of <span class="hot">hunting</span> for the<br>news that actually <span class="grad">matters?</span></h2>
+      <p class="lead">Too many tabs. Too much clickbait. Not enough time to play.</p>
     </div></section>
 
-    <!-- Scene 3 — Categories (20–30s) -->
+    <!-- Scene 3 — One feed, every platform (12–19s) -->
     <section class="scene s3"><div class="inner">
-      <div class="eyebrow">One feed, your platform</div>
-      <h2>All your game news in one place</h2>
+      <div class="kicker">One feed · every platform</div>
+      <h2 class="glow">All your game news.<br><span class="grad">One clean drop.</span></h2>
       <div class="cats">
         <span class="chip on">News</span><span class="chip">Nintendo</span>
         <span class="chip">PlayStation</span><span class="chip">Xbox</span><span class="chip">PC</span>
       </div>
     </div></section>
 
-    <!-- Scene 4 — Key points (30–40s) -->
+    <!-- Scene 4 — Stats / value (19–26s) -->
     <section class="scene s4"><div class="inner">
-      <div class="eyebrow">Read smart</div>
-      <h2>Key points on every story</h2>
-      <div class="keys">
-        <div class="k-title">★ KEY POINTS</div>
-        <ul>
-          <li>Switch 2 Ocarina remake preorder cut by $10</li>
-          <li>Anniversary Zelda hardware lands Oct 29</li>
-          <li>Price guarantee until release day</li>
-        </ul>
+      <div class="kicker">Built different</div>
+      <div class="stats">
+        <div class="stat"><div class="n grad" data-to="6" data-suffix="+">0</div><div class="l">Categories</div></div>
+        <div class="stat"><div class="n glow" data-to="3" data-suffix="s">0</div><div class="l">To the key points</div></div>
+        <div class="stat"><div class="n hot" data-to="100" data-suffix="%">0</div><div class="l">Sourced &amp; legit</div></div>
       </div>
+      <p class="lead">Key-point summaries up top. Real sources linked below.</p>
     </div></section>
 
-    <!-- Scene 5 — Features + sources (40–50s) -->
+    <!-- Scene 5 — Features (26–31s) -->
     <section class="scene s5"><div class="inner">
-      <div class="eyebrow">Built for gamers</div>
-      <h2>Trustworthy &amp; yours</h2>
+      <div class="kicker">Your command center</div>
       <div class="feat">
-        <div class="c"><div class="ic">🔗</div><h3>Verified sources</h3><small>Linked originals</small></div>
-        <div class="c"><div class="ic">🔖</div><h3>Bookmarks</h3><small>Save for later</small></div>
-        <div class="c"><div class="ic">✍️</div><h3>Create</h3><small>Publish releases</small></div>
+        <div class="c"><div class="ic">🔗</div><h3>Sources</h3><small>Verified &amp; linked</small></div>
+        <div class="c"><div class="ic">🔖</div><h3>Bookmarks</h3><small>Save the drops</small></div>
+        <div class="c"><div class="ic">✍️</div><h3>Create</h3><small>Publish your own</small></div>
+        <div class="c"><div class="ic">🔥</div><h3>Trending</h3><small>What's hot now</small></div>
       </div>
-      <div class="src"><span>mashable.com</span><span>imdb.com</span><span>gamingbible.com</span></div>
     </div></section>
 
-    <!-- Scene 6 — Call to action (50–60s) -->
+    <!-- Scene 6 — Call to action (31–36s) -->
     <section class="scene s6"><div class="inner">
       <div class="logo">N</div>
-      <h2>Press play on the news.</h2>
-      <p class="lead">Try the live News Release System today.</p>
-      <div class="url">fyp-nrs.geyser.host</div>
+      <h1 class="glow">PRESS PLAY<br><span class="grad">ON THE NEWS</span></h1>
+      <div class="url">▶ fyp-nrs.geyser.host</div>
     </div></section>
 
     <div class="progress"></div>
-    <div class="hint">Loops every 60s · screen-record this window at 1920×1080</div>
+    <div class="hint">Loops every 36s · screen-record at 1920×1080</div>
   </div>
 </div>
+
+<script>
+  // Animate the stat counters each time Scene 4 comes around (every 36s loop)
+  function runCounters(){
+    document.querySelectorAll('.s4 .n').forEach(function(el){
+      var to = +el.dataset.to, suf = el.dataset.suffix || '', dur = 1200, start = null;
+      function step(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts - start)/dur, 1);
+        var val = Math.round((1 - Math.pow(1-p,3)) * to); // easeOutCubic
+        el.textContent = val + suf;
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  // Scene 4 starts ~19s into each 36s loop
+  function schedule(){ setTimeout(runCounters, 19000); }
+  schedule();
+  setInterval(schedule, 36000);
+</script>
 </body>
 </html>
