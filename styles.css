@@ -161,6 +161,68 @@ h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 
+/* ===== Pop & polish enhancements ===== */
+
+/* Animated gradient on the hero title */
+.hero-title .grad{
+  background:linear-gradient(120deg,var(--brand),var(--brand-2),var(--accent),var(--brand));
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:grad-pan 7s ease infinite;
+}
+@keyframes grad-pan{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Floating colour blobs behind the hero */
+.hero{isolation:isolate}
+.hero::before,.hero::after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+.hero::before{width:420px;height:420px;top:-120px;right:-80px;background:radial-gradient(circle,var(--brand),transparent 70%);animation:blob-a 14s ease-in-out infinite}
+.hero::after{width:360px;height:360px;bottom:-140px;left:-60px;background:radial-gradient(circle,var(--brand-2),transparent 70%);animation:blob-b 16s ease-in-out infinite}
+@keyframes blob-a{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,30px) scale(1.12)}}
+@keyframes blob-b{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(26px,-24px) scale(1.1)}}
+
+/* Buttons: stronger glow + sheen on hover */
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s ease}
+.btn-primary:hover::after{left:140%}
+.btn-primary:hover{box-shadow:0 16px 34px -10px var(--brand)}
+
+/* Feature cards: animated gradient top accent on hover */
+.feature-card{position:relative;overflow:hidden}
+.feature-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--brand),var(--brand-2),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-card:hover .f-icon{transform:scale(1.08) rotate(-4deg);transition:transform .25s ease}
+
+/* Step cards: lift + accent on hover */
+.step{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.step:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.step:hover .step-num{box-shadow:0 10px 22px -8px var(--brand)}
+
+/* Tag cards: subtle lift */
+.tag-card{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.tag-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+
+/* Dark CTA/Team: cyberpunk grid texture + neon avatars (ties into the video) */
+.cta{position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;z-index:0;opacity:.5;
+  background-image:linear-gradient(rgba(34,211,238,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(109,94,252,.08) 1px,transparent 1px);
+  background-size:46px 46px;mask-image:radial-gradient(120% 90% at 50% 0%,#000 40%,transparent 85%)}
+.cta .container{position:relative;z-index:1}
+.cta .avatar{box-shadow:0 0 22px -4px var(--brand);transition:transform .2s ease,box-shadow .2s ease}
+.member:hover .avatar{transform:translateY(-4px) scale(1.06);box-shadow:0 0 30px -2px var(--brand-2)}
+.btn-light:hover{box-shadow:0 14px 30px -10px rgba(255,255,255,.5)}
+
+/* Video frame: neon glow to match the cyberpunk showcase */
+.video-frame{box-shadow:0 0 0 1px rgba(109,94,252,.25),0 24px 60px -24px rgba(109,94,252,.6)}
+.video-frame::after{content:"";position:absolute;inset:0;border-radius:var(--radius);pointer-events:none;
+  box-shadow:inset 0 0 60px -20px rgba(34,211,238,.5)}
+
+/* Respect reduced-motion preferences */
+@media(prefers-reduced-motion:reduce){
+  .hero-title .grad,.hero::before,.hero::after{animation:none}
+}
+
 /* ===== Responsive ===== */
 @media(max-width:900px){
   .hero-grid,.audience-grid{grid-template-columns:1fr}

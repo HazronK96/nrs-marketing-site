@@ -11,6 +11,7 @@
     --brand2:#00e5ff;     /* neon cyan */
     --hot:#ff2e97;        /* hot pink */
     --lime:#aaff00;       /* arcade lime */
+    --yellow:#fcee0a;     /* cyberpunk 2077 signature yellow */
     --bg:#05030f;
   }
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
@@ -20,24 +21,36 @@
   /* 16:9 stage that scales to the viewport */
   .frame{position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);overflow:hidden;
     background:
-      radial-gradient(1000px 600px at 80% -10%,rgba(139,92,255,.35),transparent 55%),
-      radial-gradient(900px 600px at 0% 110%,rgba(0,229,255,.28),transparent 55%),
-      radial-gradient(600px 400px at 50% 50%,rgba(255,46,151,.12),transparent 60%),
-      var(--bg);
+      radial-gradient(1100px 620px at 82% -12%,rgba(0,229,255,.40),transparent 55%),
+      radial-gradient(950px 640px at 2% 112%,rgba(252,238,10,.16),transparent 52%),
+      radial-gradient(760px 520px at 18% 20%,rgba(255,46,151,.22),transparent 58%),
+      radial-gradient(700px 460px at 50% 60%,rgba(139,92,255,.20),transparent 62%),
+      linear-gradient(160deg,#07031a 0%,#05030f 45%,#0a0318 100%);
   }
-  /* animated grid floor */
+  /* animated neon grid floor */
   .frame::before{content:"";position:absolute;inset:0;
-    background-image:linear-gradient(rgba(0,229,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,255,.12) 1px,transparent 1px);
-    background-size:4vw 4vw;mask-image:linear-gradient(transparent 40%,#000);animation:scroll-grid 6s linear infinite;z-index:0}
+    background-image:linear-gradient(rgba(0,229,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,46,151,.16) 1px,transparent 1px);
+    background-size:4vw 4vw;mask-image:linear-gradient(transparent 38%,#000);animation:scroll-grid 5s linear infinite;z-index:0}
   @keyframes scroll-grid{to{background-position:0 4vw,4vw 0}}
-  /* scan lines + flicker for that CRT arcade feel */
+  /* scan lines + CRT flicker + vignette for that cyberpunk feel */
   .frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;
-    background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.22) 2px 3px);mix-blend-mode:overlay;opacity:.5}
+    background:
+      repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.26) 2px 3px),
+      radial-gradient(130% 130% at 50% 50%,transparent 58%,rgba(0,0,0,.55) 100%);
+    mix-blend-mode:multiply;opacity:.6;animation:crt-flicker 3.4s steps(60) infinite}
+  @keyframes crt-flicker{0%,100%{opacity:.6}48%{opacity:.52}49%{opacity:.72}50%{opacity:.55}}
+
+  /* roaming light sweep for extra motion */
+  .sweep{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+    background:linear-gradient(115deg,transparent 42%,rgba(0,229,255,.16) 50%,transparent 58%);
+    background-size:260% 100%;animation:sweep 7s ease-in-out infinite}
+  @keyframes sweep{0%{background-position:120% 0}100%{background-position:-120% 0}}
 
   .scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:5%;opacity:0;z-index:5}
   .scene .inner{max-width:88%;position:relative}
 
-  .kicker{font-family:'Orbitron',sans-serif;font-size:1.1vw;letter-spacing:.42em;text-transform:uppercase;color:var(--brand2);margin-bottom:2.2vh;text-shadow:0 0 14px var(--brand2)}
+  .kicker{display:inline-block;font-family:'Orbitron',sans-serif;font-size:1.05vw;letter-spacing:.42em;text-transform:uppercase;color:var(--yellow);margin-bottom:2.2vh;text-shadow:0 0 14px rgba(252,238,10,.6);
+    padding:.6vh 1.4vw;border:.12vw solid rgba(252,238,10,.4);border-left:.4vw solid var(--yellow)}
   h1{font-family:'Orbitron',sans-serif;font-size:7vw;font-weight:900;line-height:.98;letter-spacing:-.01em}
   h2{font-family:'Orbitron',sans-serif;font-size:4.6vw;font-weight:800;line-height:1.05}
   .grad{background:linear-gradient(100deg,var(--brand2),var(--brand),var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -74,9 +87,10 @@
   .feat h3{font-family:'Orbitron',sans-serif;font-size:1.7vw;margin:1.4vh 0 .6vh}
   .feat small{font-size:1.2vw;color:#aeb6e0}
 
-  .url{font-family:'Orbitron',sans-serif;font-size:2.6vw;font-weight:800;color:#fff;margin-top:3.4vh;letter-spacing:.08em;text-shadow:0 0 20px var(--brand2)}
+  .url{display:inline-block;font-family:'Orbitron',sans-serif;font-size:2.4vw;font-weight:800;color:#05030f;background:var(--yellow);
+    margin-top:3.4vh;padding:1vh 2.2vw;letter-spacing:.08em;clip-path:polygon(0 0,100% 0,100% 70%,94% 100%,0 100%);
+    box-shadow:0 0 28px rgba(252,238,10,.55)}
 
-  .tag27{position:absolute;top:4vh;left:4vw;font-family:'Orbitron',sans-serif;font-size:1vw;letter-spacing:.26em;color:#7f8bd6;z-index:20}
   .progress{position:absolute;bottom:0;left:0;height:.8vh;width:0;z-index:20;
     background:linear-gradient(90deg,var(--brand2),var(--brand),var(--hot));box-shadow:0 0 16px var(--brand);
     animation:bar 36s linear infinite}
@@ -99,9 +113,15 @@
   @keyframes sc5{0%,71%{opacity:0;transform:scale(.92)}73%{opacity:1;transform:scale(1)}84%{opacity:1}86%{opacity:0;transform:scale(1.06)}100%{opacity:0}}
   @keyframes sc6{0%,85%{opacity:0;transform:scale(1.1)}87%{opacity:1;transform:scale(1)}99%{opacity:1}100%{opacity:0}}
 
-  /* title glitch */
+  /* title glitch — chromatic aberration (cyberpunk) */
   .glitch{position:relative;animation:shake .18s steps(2) 3}
   @keyframes shake{25%{transform:translate(.3vw,-.2vw)}75%{transform:translate(-.3vw,.2vw)}}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;
+    clip-path:inset(0 0 0 0);opacity:.85;pointer-events:none}
+  .glitch::before{color:var(--hot);transform:translate(.12em,0);mix-blend-mode:screen;animation:glitch-x 2.2s infinite steps(2)}
+  .glitch::after{color:var(--brand2);transform:translate(-.12em,0);mix-blend-mode:screen;animation:glitch-y 1.8s infinite steps(2)}
+  @keyframes glitch-x{0%,92%,100%{clip-path:inset(0 0 100% 0)}93%{clip-path:inset(0 0 72% 0)}95%{clip-path:inset(46% 0 34% 0)}97%{clip-path:inset(78% 0 6% 0)}}
+  @keyframes glitch-y{0%,90%,100%{clip-path:inset(100% 0 0 0)}91%{clip-path:inset(10% 0 76% 0)}94%{clip-path:inset(54% 0 22% 0)}96%{clip-path:inset(30% 0 58% 0)}}
   /* staggered pop for list items / chips */
   @keyframes pop{from{opacity:0;transform:translateY(1.4vh) scale(.96)}to{opacity:1;transform:none}}
   .s3 .chip{animation:pop .5s both}
@@ -115,12 +135,12 @@
 <body>
 <div class="stage">
   <div class="frame">
-    <div class="tag27">GROUP 27 · NEWS RELEASE SYSTEM</div>
+    <div class="sweep"></div>
 
     <!-- Scene 1 — Hook / Title (0–6s) -->
     <section class="scene s1"><div class="inner">
       <div class="logo">N</div>
-      <h1 class="glitch glow">NEWS RELEASE<br>SYSTEM</h1>
+      <h1 class="glitch glow" data-text="NEWS RELEASE SYSTEM">NEWS RELEASE<br>SYSTEM</h1>
       <div class="press">▶ PRESS START</div>
     </div></section>
 
@@ -166,7 +186,7 @@
     <!-- Scene 6 — Call to action (31–36s) -->
     <section class="scene s6"><div class="inner">
       <div class="logo">N</div>
-      <h1 class="glow">PRESS PLAY<br><span class="grad">ON THE NEWS</span></h1>
+      <h1 class="glitch glow" data-text="PRESS PLAY ON THE NEWS">PRESS PLAY<br><span class="grad">ON THE NEWS</span></h1>
       <div class="url">▶ fyp-nrs.geyser.host</div>
     </div></section>
 
