@@ -3,126 +3,92 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NRS — 36s Showcase (screen-record this)</title>
+<title>NRS — 30s Showcase (screen-record this)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --brand:#8b5cff;      /* electric purple */
-    --brand2:#00e5ff;     /* neon cyan */
-    --hot:#ff2e97;        /* hot pink */
-    --lime:#aaff00;       /* arcade lime */
-    --yellow:#fcee0a;     /* cyberpunk 2077 signature yellow */
-    --bg:#05030f;
+    --brand:#8b5cff;--brand2:#00e5ff;--hot:#ff2e97;--lime:#aaff00;--bg:#05030f;
   }
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
   html,body{height:100%;overflow:hidden;background:#000;color:#fff}
   .stage{position:fixed;inset:0;display:grid;place-items:center}
 
-  /* 16:9 stage that scales to the viewport */
   .frame{position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);overflow:hidden;
     background:
-      radial-gradient(1100px 620px at 82% -12%,rgba(0,229,255,.40),transparent 55%),
-      radial-gradient(950px 640px at 2% 112%,rgba(252,238,10,.16),transparent 52%),
-      radial-gradient(760px 520px at 18% 20%,rgba(255,46,151,.22),transparent 58%),
-      radial-gradient(700px 460px at 50% 60%,rgba(139,92,255,.20),transparent 62%),
-      linear-gradient(160deg,#07031a 0%,#05030f 45%,#0a0318 100%);
+      radial-gradient(1000px 600px at 80% -10%,rgba(139,92,255,.38),transparent 55%),
+      radial-gradient(900px 600px at 0% 110%,rgba(0,229,255,.3),transparent 55%),
+      radial-gradient(600px 400px at 50% 50%,rgba(255,46,151,.12),transparent 60%),
+      var(--bg);
   }
-  /* animated neon grid floor */
-  .frame::before{content:"";position:absolute;inset:0;
-    background-image:linear-gradient(rgba(0,229,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,46,151,.16) 1px,transparent 1px);
-    background-size:4vw 4vw;mask-image:linear-gradient(transparent 38%,#000);animation:scroll-grid 5s linear infinite;z-index:0}
+  .frame::before{content:"";position:absolute;inset:0;z-index:0;
+    background-image:linear-gradient(rgba(0,229,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,255,.12) 1px,transparent 1px);
+    background-size:4vw 4vw;mask-image:linear-gradient(transparent 38%,#000);animation:scroll-grid 5s linear infinite}
   @keyframes scroll-grid{to{background-position:0 4vw,4vw 0}}
-  /* scan lines + CRT flicker + vignette for that cyberpunk feel */
-  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;
-    background:
-      repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.26) 2px 3px),
-      radial-gradient(130% 130% at 50% 50%,transparent 58%,rgba(0,0,0,.55) 100%);
-    mix-blend-mode:multiply;opacity:.6;animation:crt-flicker 3.4s steps(60) infinite}
-  @keyframes crt-flicker{0%,100%{opacity:.6}48%{opacity:.52}49%{opacity:.72}50%{opacity:.55}}
-
-  /* roaming light sweep for extra motion */
-  .sweep{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.5;
-    background:linear-gradient(115deg,transparent 42%,rgba(0,229,255,.16) 50%,transparent 58%);
-    background-size:260% 100%;animation:sweep 7s ease-in-out infinite}
-  @keyframes sweep{0%{background-position:120% 0}100%{background-position:-120% 0}}
+  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:40;
+    background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.22) 2px 3px);mix-blend-mode:overlay;opacity:.5}
 
   .scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:5%;opacity:0;z-index:5}
-  .scene .inner{max-width:88%;position:relative}
+  .scene .inner{max-width:90%;position:relative}
 
-  .kicker{display:inline-block;font-family:'Orbitron',sans-serif;font-size:1.05vw;letter-spacing:.42em;text-transform:uppercase;color:var(--yellow);margin-bottom:2.2vh;text-shadow:0 0 14px rgba(252,238,10,.6);
-    padding:.6vh 1.4vw;border:.12vw solid rgba(252,238,10,.4);border-left:.4vw solid var(--yellow)}
-  h1{font-family:'Orbitron',sans-serif;font-size:7vw;font-weight:900;line-height:.98;letter-spacing:-.01em}
-  h2{font-family:'Orbitron',sans-serif;font-size:4.6vw;font-weight:800;line-height:1.05}
+  .kicker{font-family:'Orbitron',sans-serif;font-size:1.1vw;letter-spacing:.42em;text-transform:uppercase;color:var(--brand2);margin-bottom:2.2vh;text-shadow:0 0 14px var(--brand2)}
+  h1{font-family:'Orbitron',sans-serif;font-size:7vw;font-weight:900;line-height:.98}
+  h2{font-family:'Orbitron',sans-serif;font-size:4.8vw;font-weight:800;line-height:1.04}
   .grad{background:linear-gradient(100deg,var(--brand2),var(--brand),var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
   .hot{color:var(--hot);text-shadow:0 0 18px rgba(255,46,151,.6)}
   .glow{text-shadow:0 0 24px rgba(139,92,255,.7),0 0 44px rgba(0,229,255,.4)}
-  p.lead{font-size:2vw;color:#cfd6ff;margin-top:2.2vh;line-height:1.45;font-weight:600}
+  p.lead{font-size:2vw;color:#cfd6ff;margin-top:2.2vh;line-height:1.4;font-weight:600}
 
   .logo{width:11vw;height:11vw;border-radius:2.6vw;background:linear-gradient(135deg,var(--brand),var(--brand2));
-    display:grid;place-items:center;font-family:'Orbitron',sans-serif;font-size:6vw;font-weight:900;margin:0 auto 3vh;
+    display:grid;place-items:center;font-family:'Orbitron',sans-serif;font-size:6vw;font-weight:900;color:#06030f;margin:0 auto 3vh;
     box-shadow:0 0 6vh var(--brand),inset 0 0 2vh rgba(255,255,255,.25);border:.3vw solid rgba(255,255,255,.25)}
 
-  /* PRESS START badge */
-  .press{display:inline-block;font-family:'Orbitron',sans-serif;font-size:1.5vw;letter-spacing:.3em;
-    color:var(--lime);border:.2vw solid var(--lime);padding:1.4vh 2.4vw;border-radius:999px;margin-top:3.2vh;
+  .press{display:inline-block;font-family:'Orbitron',sans-serif;font-size:1.5vw;letter-spacing:.3em;color:var(--lime);
+    border:.2vw solid var(--lime);padding:1.4vh 2.4vw;border-radius:999px;margin-top:3.2vh;
     text-shadow:0 0 12px var(--lime);box-shadow:0 0 24px rgba(170,255,0,.35);animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:.25}}
 
-  /* stat counters */
-  .stats{display:flex;gap:4vw;justify-content:center;margin-top:1vh}
+  .stats{display:flex;gap:4.5vw;justify-content:center;margin-top:1vh}
   .stat .n{font-family:'Orbitron',sans-serif;font-size:6vw;font-weight:900;line-height:1}
   .stat .l{font-size:1.3vw;color:#aeb6e0;letter-spacing:.12em;text-transform:uppercase;margin-top:1vh}
 
-  /* category chips */
   .cats{display:flex;gap:1.2vw;justify-content:center;flex-wrap:wrap;margin-top:3.5vh}
   .chip{font-family:'Orbitron',sans-serif;font-size:1.5vw;font-weight:700;padding:1.3vh 2.4vw;border-radius:999px;
-    background:rgba(255,255,255,.06);border:.15vw solid rgba(255,255,255,.2);color:#fff}
-  .chip.on{background:linear-gradient(100deg,var(--brand),var(--brand2));border-color:transparent;box-shadow:0 0 30px rgba(139,92,255,.6)}
+    background:rgba(255,255,255,.06);border:.15vw solid rgba(255,255,255,.2)}
+  .chip.on{background:linear-gradient(100deg,var(--brand),var(--brand2));border-color:transparent;color:#06030f;box-shadow:0 0 30px rgba(139,92,255,.6)}
 
-  /* feature pills */
-  .feat{display:flex;gap:2vw;justify-content:center;flex-wrap:wrap;margin-top:4vh}
-  .feat .c{background:rgba(255,255,255,.05);border:.15vw solid rgba(255,255,255,.14);border-radius:1.6vw;padding:3vh 2.4vw;min-width:15vw;
-    box-shadow:0 0 0 rgba(0,229,255,0);transition:.3s}
-  .feat .ic{font-size:3.4vw}
-  .feat h3{font-family:'Orbitron',sans-serif;font-size:1.7vw;margin:1.4vh 0 .6vh}
-  .feat small{font-size:1.2vw;color:#aeb6e0}
+  .feat{display:flex;gap:2vw;justify-content:center;flex-wrap:wrap;margin-top:3.5vh}
+  .feat .c{background:rgba(255,255,255,.05);border:.15vw solid rgba(255,255,255,.14);border-radius:1.6vw;padding:2.6vh 2.2vw;min-width:13vw}
+  .feat .ic{font-size:3.2vw}
+  .feat h3{font-family:'Orbitron',sans-serif;font-size:1.6vw;margin:1.2vh 0 .5vh}
+  .feat small{font-size:1.1vw;color:#aeb6e0}
 
-  .url{display:inline-block;font-family:'Orbitron',sans-serif;font-size:2.4vw;font-weight:800;color:#05030f;background:var(--yellow);
-    margin-top:3.4vh;padding:1vh 2.2vw;letter-spacing:.08em;clip-path:polygon(0 0,100% 0,100% 70%,94% 100%,0 100%);
-    box-shadow:0 0 28px rgba(252,238,10,.55)}
+  .urls{display:flex;gap:2vw;justify-content:center;flex-wrap:wrap;margin-top:3vh}
+  .urls span{font-family:'Orbitron',sans-serif;font-size:1.7vw;font-weight:800;color:#fff;letter-spacing:.04em;
+    border:.15vw solid rgba(0,229,255,.4);padding:1.2vh 2vw;border-radius:999px;text-shadow:0 0 16px var(--brand2)}
 
+  .tag27{position:absolute;top:4vh;left:4vw;font-family:'Orbitron',sans-serif;font-size:1vw;letter-spacing:.26em;color:#7f8bd6;z-index:20}
   .progress{position:absolute;bottom:0;left:0;height:.8vh;width:0;z-index:20;
-    background:linear-gradient(90deg,var(--brand2),var(--brand),var(--hot));box-shadow:0 0 16px var(--brand);
-    animation:bar 36s linear infinite}
+    background:linear-gradient(90deg,var(--brand2),var(--brand),var(--hot));box-shadow:0 0 16px var(--brand);animation:bar 30s linear infinite}
   @keyframes bar{to{width:100%}}
   .hint{position:absolute;bottom:2.4vh;right:3vw;font-size:.95vw;color:#4a5590;z-index:20}
 
-  /* ============ SCENE TIMING — 6 scenes over a 36s loop ============
-     Scene windows: s1 0-6 | s2 6-12 | s3 12-19 | s4 19-26 | s5 26-31 | s6 31-36 */
-  .s1{animation:sc1 36s linear infinite}
-  .s2{animation:sc2 36s linear infinite}
-  .s3{animation:sc3 36s linear infinite}
-  .s4{animation:sc4 36s linear infinite}
-  .s5{animation:sc5 36s linear infinite}
-  .s6{animation:sc6 36s linear infinite}
-  /* zoom-punch in, hold, snap out */
+  /* ===== 6 scenes over a 30s loop =====
+     s1 0-5 | s2 5-10 | s3 10-15.5 | s4 15.5-21 | s5 21-25.5 | s6 25.5-30 */
+  .s1{animation:sc1 30s linear infinite}
+  .s2{animation:sc2 30s linear infinite}
+  .s3{animation:sc3 30s linear infinite}
+  .s4{animation:sc4 30s linear infinite}
+  .s5{animation:sc5 30s linear infinite}
+  .s6{animation:sc6 30s linear infinite}
   @keyframes sc1{0%{opacity:0;transform:scale(1.15)}2%{opacity:1;transform:scale(1)}15%{opacity:1;transform:scale(1.02)}17%{opacity:0;transform:scale(.9)}100%{opacity:0}}
   @keyframes sc2{0%,16%{opacity:0;transform:translateX(6vw)}18%{opacity:1;transform:translateX(0)}31%{opacity:1}33%{opacity:0;transform:translateX(-6vw)}100%{opacity:0}}
-  @keyframes sc3{0%,32%{opacity:0;transform:scale(.92)}34%{opacity:1;transform:scale(1)}51%{opacity:1}53%{opacity:0;transform:scale(1.08)}100%{opacity:0}}
-  @keyframes sc4{0%,52%{opacity:0;transform:translateY(5vh)}54%{opacity:1;transform:translateY(0)}70%{opacity:1}72%{opacity:0;transform:translateY(-4vh)}100%{opacity:0}}
-  @keyframes sc5{0%,71%{opacity:0;transform:scale(.92)}73%{opacity:1;transform:scale(1)}84%{opacity:1}86%{opacity:0;transform:scale(1.06)}100%{opacity:0}}
-  @keyframes sc6{0%,85%{opacity:0;transform:scale(1.1)}87%{opacity:1;transform:scale(1)}99%{opacity:1}100%{opacity:0}}
+  @keyframes sc3{0%,32%{opacity:0;transform:scale(.92)}34%{opacity:1;transform:scale(1)}50%{opacity:1}52%{opacity:0;transform:scale(1.08)}100%{opacity:0}}
+  @keyframes sc4{0%,51%{opacity:0;transform:translateY(5vh)}53%{opacity:1;transform:translateY(0)}69%{opacity:1}71%{opacity:0;transform:translateY(-4vh)}100%{opacity:0}}
+  @keyframes sc5{0%,70%{opacity:0;transform:scale(.92)}72%{opacity:1;transform:scale(1)}83%{opacity:1}85%{opacity:0;transform:scale(1.06)}100%{opacity:0}}
+  @keyframes sc6{0%,84%{opacity:0;transform:scale(1.1)}86%{opacity:1;transform:scale(1)}99%{opacity:1}100%{opacity:0}}
 
-  /* title glitch — chromatic aberration (cyberpunk) */
-  .glitch{position:relative;animation:shake .18s steps(2) 3}
+  .glitch{animation:shake .18s steps(2) 3}
   @keyframes shake{25%{transform:translate(.3vw,-.2vw)}75%{transform:translate(-.3vw,.2vw)}}
-  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;
-    clip-path:inset(0 0 0 0);opacity:.85;pointer-events:none}
-  .glitch::before{color:var(--hot);transform:translate(.12em,0);mix-blend-mode:screen;animation:glitch-x 2.2s infinite steps(2)}
-  .glitch::after{color:var(--brand2);transform:translate(-.12em,0);mix-blend-mode:screen;animation:glitch-y 1.8s infinite steps(2)}
-  @keyframes glitch-x{0%,92%,100%{clip-path:inset(0 0 100% 0)}93%{clip-path:inset(0 0 72% 0)}95%{clip-path:inset(46% 0 34% 0)}97%{clip-path:inset(78% 0 6% 0)}}
-  @keyframes glitch-y{0%,90%,100%{clip-path:inset(100% 0 0 0)}91%{clip-path:inset(10% 0 76% 0)}94%{clip-path:inset(54% 0 22% 0)}96%{clip-path:inset(30% 0 58% 0)}}
-  /* staggered pop for list items / chips */
   @keyframes pop{from{opacity:0;transform:translateY(1.4vh) scale(.96)}to{opacity:1;transform:none}}
   .s3 .chip{animation:pop .5s both}
   .s3 .chip:nth-child(1){animation-delay:.1s}.s3 .chip:nth-child(2){animation-delay:.2s}
@@ -135,23 +101,23 @@
 <body>
 <div class="stage">
   <div class="frame">
-    <div class="sweep"></div>
+    <div class="tag27">NEWS RELEASE SYSTEM</div>
 
-    <!-- Scene 1 — Hook / Title (0–6s) -->
+    <!-- Scene 1 — Hook / Title (0–5s) -->
     <section class="scene s1"><div class="inner">
       <div class="logo">N</div>
-      <h1 class="glitch glow" data-text="NEWS RELEASE SYSTEM">NEWS RELEASE<br>SYSTEM</h1>
+      <h1 class="glitch glow">NEWS RELEASE<br>SYSTEM</h1>
       <div class="press">▶ PRESS START</div>
     </div></section>
 
-    <!-- Scene 2 — The hook question (6–12s) -->
+    <!-- Scene 2 — The hook (5–10s) -->
     <section class="scene s2"><div class="inner">
       <div class="kicker">Attention, gamers</div>
       <h2>Tired of <span class="hot">hunting</span> for the<br>news that actually <span class="grad">matters?</span></h2>
       <p class="lead">Too many tabs. Too much clickbait. Not enough time to play.</p>
     </div></section>
 
-    <!-- Scene 3 — One feed, every platform (12–19s) -->
+    <!-- Scene 3 — One feed (10–15.5s) -->
     <section class="scene s3"><div class="inner">
       <div class="kicker">One feed · every platform</div>
       <h2 class="glow">All your game news.<br><span class="grad">One clean drop.</span></h2>
@@ -161,59 +127,57 @@
       </div>
     </div></section>
 
-    <!-- Scene 4 — Stats / value (19–26s) -->
+    <!-- Scene 4 — Stats (15.5–21s) -->
     <section class="scene s4"><div class="inner">
       <div class="kicker">Built different</div>
       <div class="stats">
-        <div class="stat"><div class="n grad" data-to="6" data-suffix="+">0</div><div class="l">Categories</div></div>
-        <div class="stat"><div class="n glow" data-to="3" data-suffix="s">0</div><div class="l">To the key points</div></div>
-        <div class="stat"><div class="n hot" data-to="100" data-suffix="%">0</div><div class="l">Sourced &amp; legit</div></div>
+        <div class="stat"><div class="n grad" data-to="6" data-suffix="+">0</div><div class="l">Channels</div></div>
+        <div class="stat"><div class="n glow" data-to="3" data-suffix="s">0</div><div class="l">To key points</div></div>
+        <div class="stat"><div class="n hot" data-to="100" data-suffix="%">0</div><div class="l">Sourced</div></div>
       </div>
-      <p class="lead">Key-point summaries up top. Real sources linked below.</p>
+      <p class="lead">Key points up top. Real sources linked below.</p>
     </div></section>
 
-    <!-- Scene 5 — Features (26–31s) -->
+    <!-- Scene 5 — Features (21–25.5s) -->
     <section class="scene s5"><div class="inner">
       <div class="kicker">Your command center</div>
       <div class="feat">
-        <div class="c"><div class="ic">🔗</div><h3>Sources</h3><small>Verified &amp; linked</small></div>
-        <div class="c"><div class="ic">🔖</div><h3>Bookmarks</h3><small>Save the drops</small></div>
-        <div class="c"><div class="ic">✍️</div><h3>Create</h3><small>Publish your own</small></div>
-        <div class="c"><div class="ic">🔥</div><h3>Trending</h3><small>What's hot now</small></div>
+        <div class="c"><div class="ic">🔗</div><h3>Sources</h3><small>Verified</small></div>
+        <div class="c"><div class="ic">🔖</div><h3>Bookmarks</h3><small>Save drops</small></div>
+        <div class="c"><div class="ic">✍️</div><h3>Create</h3><small>Publish</small></div>
+        <div class="c"><div class="ic">🔥</div><h3>Trending</h3><small>What's hot</small></div>
       </div>
     </div></section>
 
-    <!-- Scene 6 — Call to action (31–36s) -->
+    <!-- Scene 6 — CTA (25.5–30s) -->
     <section class="scene s6"><div class="inner">
       <div class="logo">N</div>
-      <h1 class="glitch glow" data-text="PRESS PLAY ON THE NEWS">PRESS PLAY<br><span class="grad">ON THE NEWS</span></h1>
-      <div class="url">▶ fyp-nrs.geyser.host</div>
+      <h1 class="glow">PRESS PLAY<br><span class="grad">ON THE NEWS</span></h1>
+      <div class="urls"><span>▶ nrs.rabutenri.com</span><span>▶ fyp-nrs.geyser.host</span></div>
     </div></section>
 
     <div class="progress"></div>
-    <div class="hint">Loops every 36s · screen-record at 1920×1080</div>
+    <div class="hint">Loops every 30s · screen-record at 1920×1080</div>
   </div>
 </div>
 
 <script>
-  // Animate the stat counters each time Scene 4 comes around (every 36s loop)
   function runCounters(){
     document.querySelectorAll('.s4 .n').forEach(function(el){
-      var to = +el.dataset.to, suf = el.dataset.suffix || '', dur = 1200, start = null;
+      var to = +el.dataset.to, suf = el.dataset.suffix || '', dur = 1100, start = null;
       function step(ts){
         if(!start) start = ts;
         var p = Math.min((ts - start)/dur, 1);
-        var val = Math.round((1 - Math.pow(1-p,3)) * to); // easeOutCubic
-        el.textContent = val + suf;
+        el.textContent = Math.round((1 - Math.pow(1-p,3)) * to) + suf;
         if(p < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     });
   }
-  // Scene 4 starts ~19s into each 36s loop
-  function schedule(){ setTimeout(runCounters, 19000); }
+  // Scene 4 starts ~15.5s into each 30s loop
+  function schedule(){ setTimeout(runCounters, 15500); }
   schedule();
-  setInterval(schedule, 36000);
+  setInterval(schedule, 30000);
 </script>
 </body>
 </html>

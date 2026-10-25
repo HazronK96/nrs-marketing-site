@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News Release System — Game news, done right</title>
-  <meta name="description" content="News Release System (NRS) — a gamer-first news platform with key-point summaries, verified sources, bookmarks and more." />
+  <title>News Release System — Game news, from the future</title>
+  <meta name="description" content="News Release System (NRS) — a futuristic, gamer-first news platform with key-point summaries, verified sources, bookmarks and more." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- animated background layers -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
   <!-- ===== Header ===== -->
   <header class="site-header" id="top">
     <div class="container nav">
@@ -20,12 +25,11 @@
       </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
-        <a href="#how">How it works</a>
+        <a href="#how">Protocol</a>
         <a href="#audience">For gamers</a>
-        <a href="#video">Video</a>
-        <a href="#team">Team</a>
+        <a href="#access">Launch</a>
       </nav>
-      <a class="btn btn-primary" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">Open the live app ↗</a>
+      <a class="btn btn-primary" href="#access">Enter the grid ↗</a>
     </div>
   </header>
 
@@ -33,32 +37,33 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">News Release System</span>
+        <span class="eyebrow">▶ System online</span>
         <h1 class="hero-title">
-          Game news, <span class="grad">cut to the point.</span>
+          Game news, <span class="grad glow">from the future.</span>
         </h1>
-        <p class="hero-tagline" id="tagline">Every headline that matters — summarised, sourced, and built for gamers.</p>
+        <!-- TAGLINE: swap the text below to change it (options in VIDEO-SCRIPT.md) -->
+        <p class="hero-tagline" id="tagline">Game news, cut to the point.</p>
         <p class="hero-sub">
-          The News Release System (NRS) brings Nintendo, PlayStation, Xbox and PC news into one clean feed —
-          with instant <strong>key-point summaries</strong> and <strong>linked original sources</strong> so you can trust what you read.
+          The <strong>News Release System</strong> streams Nintendo, PlayStation, Xbox and PC news into one neon-lit feed —
+          with instant <strong>key-point summaries</strong> and <strong>verified, linked sources</strong>. Signal only. Zero noise.
         </p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">Explore the live demo ↗</a>
-          <a class="btn btn-ghost btn-lg" href="#features">See the features</a>
+          <a class="btn btn-primary btn-lg" href="#access">Launch the app ↗</a>
+          <a class="btn btn-ghost btn-lg" href="#features">Scan features</a>
         </div>
         <ul class="hero-stats">
-          <li><strong>6+</strong><span>news categories</span></li>
-          <li><strong>Key points</strong><span>on every story</span></li>
-          <li><strong>Verified</strong><span>sources linked</span></li>
+          <li><strong data-count="6" data-suffix="+">6+</strong><span>news channels</span></li>
+          <li><strong data-count="3" data-suffix="s">3s</strong><span>to key points</span></li>
+          <li><strong data-count="100" data-suffix="%">100%</strong><span>sourced</span></li>
         </ul>
       </div>
 
-      <!-- Browser mockup -->
+      <!-- Holographic browser mockup -->
       <div class="hero-mock" aria-hidden="true">
         <div class="browser">
           <div class="browser-bar">
             <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-            <div class="url">fyp-nrs.geyser.host</div>
+            <div class="url">nrs.rabutenri.com</div>
           </div>
           <div class="browser-body">
             <div class="mock-top">
@@ -94,9 +99,9 @@
   <!-- ===== Trust bar ===== -->
   <section class="trustbar">
     <div class="container">
-      <p>Built for the way gamers actually read the news</p>
+      <p>Engineered for the way gamers actually read</p>
       <div class="trust-items">
-        <span>⚡ Fast, focused feed</span>
+        <span>⚡ Lightning feed</span>
         <span>📝 Key-point summaries</span>
         <span>🔗 Linked sources</span>
         <span>🔖 Bookmarks &amp; profiles</span>
@@ -110,24 +115,24 @@
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Features</span>
-        <h2>Everything a gamer needs to stay in the loop</h2>
-        <p>NRS is designed around one idea: get the real story, fast, without the clickbait.</p>
+        <h2>Your command center for game news</h2>
+        <p>One idea drives it all: get the real story, fast, without the clickbait.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
           <div class="f-icon">🎮</div>
-          <h3>Game-first categories</h3>
-          <p>Jump straight to Nintendo, PlayStation, Xbox, PC or Reviews — or browse everything in one unified feed.</p>
+          <h3>Multi-platform channels</h3>
+          <p>Jump straight to Nintendo, PlayStation, Xbox, PC or Reviews — or stream everything in one unified feed.</p>
         </div>
         <div class="feature-card">
           <div class="f-icon">⭐</div>
           <h3>Key-point summaries</h3>
-          <p>Every article leads with a bullet-point summary, so you grasp the story in seconds before diving deeper.</p>
+          <p>Every release leads with a bullet-point briefing, so you grasp the story in seconds before diving deeper.</p>
         </div>
         <div class="feature-card">
           <div class="f-icon">🔗</div>
           <h3>Verified sources</h3>
-          <p>Each release links back to its original outlets — read with confidence and follow the trail yourself.</p>
+          <p>Each story links back to its original outlets — read with confidence and follow the trail yourself.</p>
         </div>
         <div class="feature-card">
           <div class="f-icon">🔖</div>
@@ -137,37 +142,37 @@
         <div class="feature-card">
           <div class="f-icon">✍️</div>
           <h3>Create &amp; publish</h3>
-          <p>Authors can draft and publish releases through a dedicated creation flow, with tasks to manage the pipeline.</p>
+          <p>Authors draft and publish releases through a dedicated creation flow, with tasks to manage the pipeline.</p>
         </div>
         <div class="feature-card">
-          <div class="f-icon">📈</div>
+          <div class="f-icon">🔥</div>
           <h3>Trending &amp; topics</h3>
-          <p>Discover what the community is reading with Trending News and recommended topics like Esports and Indie Games.</p>
+          <p>Discover what the community is reading with Trending News and topics like Esports and Indie Games.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== How it works ===== -->
+  <!-- ===== How it works / Protocol ===== -->
   <section class="section section-alt" id="how">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">How it works</span>
+        <span class="eyebrow">The protocol</span>
         <h2>From headline to the full story in three steps</h2>
       </div>
       <div class="steps">
         <div class="step">
-          <span class="step-num">1</span>
+          <span class="step-num">01</span>
           <h3>Discover</h3>
           <p>Open a clean, sortable feed and filter by your platform. Trending and recommended topics surface what matters now.</p>
         </div>
         <div class="step">
-          <span class="step-num">2</span>
+          <span class="step-num">02</span>
           <h3>Read smart</h3>
           <p>Lead with the key points, then read the full release — every claim backed by linked original sources.</p>
         </div>
         <div class="step">
-          <span class="step-num">3</span>
+          <span class="step-num">03</span>
           <h3>Save &amp; share</h3>
           <p>Bookmark stories, manage them from your profile, and — as an author — create and publish your own releases.</p>
         </div>
@@ -180,15 +185,15 @@
     <div class="container audience-grid">
       <div>
         <span class="eyebrow">Who it's for</span>
-        <h2>Made for gamers who want signal, not noise</h2>
+        <h2>Built for gamers who want signal, not noise</h2>
         <p>Gaming news moves fast and spreads thin across dozens of sites. NRS pulls it together, trims it down, and keeps it honest — so you spend less time hunting and more time playing.</p>
         <ul class="check-list">
           <li>Console &amp; PC players tracking releases, prices and updates</li>
-          <li>Fans who want a quick, trustworthy summary at a glance</li>
+          <li>Fans who want a quick, trustworthy briefing at a glance</li>
           <li>Readers who care where a story actually came from</li>
           <li>Writers who want a simple way to publish game news</li>
         </ul>
-        <a class="btn btn-primary" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">Try it yourself ↗</a>
+        <a class="btn btn-primary" href="#access">Jump in ↗</a>
       </div>
       <div class="quote-card">
         <p class="quote">“The news that matters, summarised and sourced — so I actually know what's going on before I click.”</p>
@@ -197,69 +202,89 @@
     </div>
   </section>
 
-  <!-- ===== Taglines (pick-one helper for the team) ===== -->
-  <section class="section section-alt" id="taglines">
+  <!-- ===== Launch / Access (both live links) ===== -->
+  <section class="section section-alt" id="access">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">For the team</span>
-        <h2>Tagline &amp; name options to choose from</h2>
-        <p>Pick a favourite with your group — swap the live one at the top in a single line of HTML.</p>
+        <span class="eyebrow">Launch</span>
+        <h2>Enter the News Release System</h2>
+        <p>Two live builds are online. Pick a portal and jump straight in.</p>
+      </div>
+      <div class="portal-grid">
+        <a class="portal" href="https://nrs.rabutenri.com/" target="_blank" rel="noopener">
+          <span class="portal-tag">Primary build</span>
+          <h3>nrs.rabutenri.com</h3>
+          <p>The latest test build of the live platform.</p>
+          <span class="portal-go">Launch ↗</span>
+        </a>
+        <a class="portal" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">
+          <span class="portal-tag">Original build</span>
+          <h3>fyp-nrs.geyser.host</h3>
+          <p>The original deployment of the platform.</p>
+          <span class="portal-go">Launch ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Taglines (pick-one helper) ===== -->
+  <section class="section" id="taglines">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Options</span>
+        <h2>Tagline options to choose from</h2>
+        <p>Swap the live one in <code>index.html</code> (look for the TAGLINE comment) in a single line.</p>
       </div>
       <div class="tag-grid">
-        <div class="tag-card"><span class="tag-k">A</span><p>“Game news, cut to the point.”</p></div>
-        <div class="tag-card"><span class="tag-k">B</span><p>“Every headline that matters — summarised, sourced, built for gamers.”</p></div>
-        <div class="tag-card"><span class="tag-k">C</span><p>“Less scrolling. More playing.”</p></div>
-        <div class="tag-card"><span class="tag-k">D</span><p>“The source behind the story.”</p></div>
-        <div class="tag-card"><span class="tag-k">E</span><p>“Your game news, summarised and sourced.”</p></div>
-        <div class="tag-card"><span class="tag-k">F</span><p>“Press play on the news.”</p></div>
+        <div class="tag-card"><span class="tag-k">A</span><p>“Game news, cut to the point.” <em>(current)</em></p></div>
+        <div class="tag-card"><span class="tag-k">B</span><p>“Signal only. Zero noise.”</p></div>
+        <div class="tag-card"><span class="tag-k">C</span><p>“Press play on the news.”</p></div>
+        <div class="tag-card"><span class="tag-k">D</span><p>“Your game news, decoded.”</p></div>
+        <div class="tag-card"><span class="tag-k">E</span><p>“The future of the feed.”</p></div>
+        <div class="tag-card"><span class="tag-k">F</span><p>“Less scrolling. More playing.”</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Video showcase ===== -->
-  <section class="section" id="video">
+  <!-- ============================================================= -->
+  <!-- ===== TEAM SECTION — to REMOVE: delete this whole block ===== -->
+  <!-- ===== (from <!-- TEAM START --> to <!-- TEAM END -->)   ===== -->
+  <!-- ============================================================= -->
+  <!-- TEAM START -->
+  <section class="section section-alt team-section" id="team">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Watch it in action</span>
-        <h2>The 36-second showcase</h2>
-        <p>A fast-cut, arcade-style trailer for the News Release System — it loops automatically every 36 seconds.</p>
+        <span class="eyebrow">The crew</span>
+        <h2>Meet the team</h2>
       </div>
-      <div class="video-wrap">
-        <div class="video-frame">
-          <iframe
-            src="showcase.html"
-            title="News Release System — 36-second showcase"
-            loading="lazy"
-            allowfullscreen></iframe>
-        </div>
-        <p class="video-note">
-          Prefer it full-screen? <a href="showcase.html" target="_blank" rel="noopener">Open the showcase in a new tab ↗</a>
-        </p>
+      <div class="team-slots">
+        <div class="member"><span class="avatar">H</span><strong>Hazron</strong><small>Team Leader</small></div>
+        <div class="member"><span class="avatar">P</span><strong>Priscilla</strong><small>Lead Documentation</small></div>
+        <div class="member"><span class="avatar">Y</span><strong>Yu Yang</strong><small>Developer</small></div>
+        <div class="member"><span class="avatar">B</span><strong>Bryan</strong><small>UI/UX Designer</small></div>
+        <div class="member"><span class="avatar">Y</span><strong>Yong Jun</strong><small>Lead Developer</small></div>
       </div>
     </div>
   </section>
+  <!-- TEAM END -->
 
-  <!-- ===== Team / CTA ===== -->
-  <section class="section cta" id="team">
+  <!-- ===== Final CTA ===== -->
+  <section class="section cta">
     <div class="container cta-inner">
-      <span class="eyebrow light">The team</span>
-      <h2>News Release System</h2>
-      <p class="cta-sub">Design and Implementation — a gamer-first news platform.</p>
-      <div class="team-slots">
-        <div class="member"><span class="avatar">?</span><strong>Hazron</strong><small>Team Leader</small></div>
-        <div class="member"><span class="avatar">?</span><strong>Priscilla</strong><small>Lead Documentation</small></div>
-        <div class="member"><span class="avatar">?</span><strong>Yu Yang</strong><small>Developer</small></div>
-        <div class="member"><span class="avatar">?</span><strong>Bryan</strong><small>UI/UX Designer</small></div>
-        <div class="member"><span class="avatar">?</span><strong>Yong Jun</strong><small>Lead Developer</small></div>
-      </div>
-      <a class="btn btn-light btn-lg" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">Open the live application ↗</a>
+      <span class="eyebrow light">▶ Ready player one</span>
+      <h2 class="glow">Press play on the news.</h2>
+      <p class="cta-sub">Stream every drop that matters — summarised, sourced, and built for gamers.</p>
+      <a class="btn btn-light btn-lg" href="#access">Launch the News Release System ↗</a>
     </div>
   </section>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>© <span id="year"></span> News Release System — Design and Implementation</span>
-      <a href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">fyp-nrs.geyser.host</a>
+      <span>© <span id="year"></span> News Release System</span>
+      <span class="footer-links">
+        <a href="https://nrs.rabutenri.com/" target="_blank" rel="noopener">nrs.rabutenri.com</a>
+        <a href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">fyp-nrs.geyser.host</a>
+      </span>
     </div>
   </footer>
 
