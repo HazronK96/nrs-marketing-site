@@ -25,6 +25,7 @@
       </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
+        <a href="#watch">Watch</a>
         <a href="#how">Protocol</a>
         <a href="#audience">For gamers</a>
         <a href="#access">Launch</a>
@@ -110,8 +111,50 @@
     </div>
   </section>
 
+  <!-- ============================================================= -->
+  <!-- ===== WATCH / VIDEO SECTION =============================== -->
+  <!-- To use a REAL recorded video later, see the two swap options -->
+  <!-- marked "SWAP OPTION" inside the .player below.                -->
+  <!-- ============================================================= -->
+  <section class="section" id="watch">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">▶ Watch</span>
+        <h2>See it in motion</h2>
+        <p>A 30-second look at the News Release System — summarised, sourced, built for gamers.</p>
+      </div>
+
+      <div class="player">
+        <!-- CURRENT: embeds the animated showcase.html (no video file needed) -->
+        <iframe class="player-frame" src="showcase.html" title="News Release System showcase" loading="lazy"></iframe>
+
+        <!-- ===== SWAP OPTION A — real recorded .mp4 =====
+             1) Record showcase.html (or the app) to a file, e.g. nrs-video.mp4
+             2) Put it in this folder
+             3) Delete the <iframe> above and uncomment the block below:
+        <video class="player-frame" controls poster="" preload="metadata">
+          <source src="nrs-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        ================================================= -->
+
+        <!-- ===== SWAP OPTION B — YouTube embed =====
+             1) Upload the video to YouTube
+             2) Delete the <iframe> above and uncomment the block below,
+                replacing VIDEO_ID with your video's id:
+        <iframe class="player-frame" src="https://www.youtube.com/embed/VIDEO_ID"
+          title="News Release System" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        ========================================== -->
+      </div>
+
+      <p class="player-note">Tip: open <code>showcase.html</code> full-screen and screen-record one loop to export a shareable video.</p>
+    </div>
+  </section>
+
   <!-- ===== Features ===== -->
-  <section class="section" id="features">
+  <section class="section section-alt" id="features">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Features</span>
@@ -154,7 +197,7 @@
   </section>
 
   <!-- ===== How it works / Protocol ===== -->
-  <section class="section section-alt" id="how">
+  <section class="section" id="how">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">The protocol</span>
@@ -181,7 +224,7 @@
   </section>
 
   <!-- ===== Audience ===== -->
-  <section class="section" id="audience">
+  <section class="section section-alt" id="audience">
     <div class="container audience-grid">
       <div>
         <span class="eyebrow">Who it's for</span>
@@ -203,7 +246,7 @@
   </section>
 
   <!-- ===== Launch / Access (both live links) ===== -->
-  <section class="section section-alt" id="access">
+  <section class="section" id="access">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Launch</span>
@@ -228,7 +271,7 @@
   </section>
 
   <!-- ===== Taglines (pick-one helper) ===== -->
-  <section class="section" id="taglines">
+  <section class="section section-alt" id="taglines">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Options</span>
@@ -251,7 +294,7 @@
   <!-- ===== (from <!-- TEAM START --> to <!-- TEAM END -->)   ===== -->
   <!-- ============================================================= -->
   <!-- TEAM START -->
-  <section class="section section-alt team-section" id="team">
+  <section class="section team-section" id="team">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">The crew</span>
