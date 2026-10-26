@@ -106,66 +106,177 @@
     return fetchFile();
   }
 
-  // Fields we expose in the editor (label + path into the JSON)
-  const FIELDS = [
-    ['Brand name', 'brand.name'],
-    ['Hero — eyebrow', 'hero.eyebrow'],
-    ['Hero — title (lead)', 'hero.titleLead'],
-    ['Hero — title (highlight)', 'hero.titleHighlight'],
-    ['Hero — tagline', 'hero.tagline'],
-    ['Hero — subtext', 'hero.sub', 'area'],
-    ['Trust bar — heading', 'trustbar.heading'],
-    ['Watch — eyebrow', 'watch.eyebrow'],
-    ['Watch — heading', 'watch.heading'],
-    ['Watch — subtext', 'watch.sub', 'area'],
-    ['Features — eyebrow', 'features.eyebrow'],
-    ['Features — heading', 'features.heading'],
-    ['Features — subtext', 'features.sub', 'area'],
-    ['Getting Started — eyebrow', 'gettingStarted.eyebrow'],
-    ['Getting Started — heading', 'gettingStarted.heading'],
-    ['Audience — eyebrow', 'audience.eyebrow'],
-    ['Audience — heading', 'audience.heading'],
-    ['Audience — text', 'audience.text', 'area'],
-    ['Audience — quote', 'audience.quote', 'area'],
-    ['Launch — eyebrow', 'access.eyebrow'],
-    ['Launch — heading', 'access.heading'],
-    ['Launch — subtext', 'access.sub', 'area'],
-    ['Feedback — eyebrow', 'feedback.eyebrow'],
-    ['Feedback — heading', 'feedback.heading'],
-    ['Feedback — subtext', 'feedback.sub', 'area'],
-    ['CTA — heading', 'cta.heading'],
-    ['CTA — subtext', 'cta.sub', 'area'],
-    ['Footer — copyright', 'footer.copyright'],
-  ];
-
   const getP = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
   const setP = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); let t = o; ks.forEach(k => { t[k] = t[k] || {}; t = t[k]; }); t[last] = v; };
+  const esc2 = (s) => String(s ?? '').replace(/"/g, '&quot;');
+  const escA = (s) => String(s ?? '').replace(/</g, '&lt;');
+
+  // Groups of simple text fields, organised into collapsible sections
+  const GROUPS = [
+    ['Brand & Hero', [
+      ['Brand name', 'brand.name'],
+      ['Hero — eyebrow', 'hero.eyebrow'],
+      ['Hero — title (lead)', 'hero.titleLead'],
+      ['Hero — title (highlight)', 'hero.titleHighlight'],
+      ['Hero — tagline', 'hero.tagline'],
+      ['Hero — subtext', 'hero.sub', 'area'],
+    ]],
+    ['Trust bar & Watch', [
+      ['Trust bar — heading', 'trustbar.heading'],
+      ['Watch — eyebrow', 'watch.eyebrow'],
+      ['Watch — heading', 'watch.heading'],
+      ['Watch — subtext', 'watch.sub', 'area'],
+    ]],
+    ['Features (section text)', [
+      ['Features — eyebrow', 'features.eyebrow'],
+      ['Features — heading', 'features.heading'],
+      ['Features — subtext', 'features.sub', 'area'],
+    ]],
+    ['Getting Started (section text)', [
+      ['Getting Started — eyebrow', 'gettingStarted.eyebrow'],
+      ['Getting Started — heading', 'gettingStarted.heading'],
+    ]],
+    ['Audience', [
+      ['Audience — eyebrow', 'audience.eyebrow'],
+      ['Audience — heading', 'audience.heading'],
+      ['Audience — text', 'audience.text', 'area'],
+      ['Audience — quote', 'audience.quote', 'area'],
+      ['Audience — quote by', 'audience.quoteBy'],
+    ]],
+    ['Launch', [
+      ['Launch — eyebrow', 'access.eyebrow'],
+      ['Launch — heading', 'access.heading'],
+      ['Launch — subtext', 'access.sub', 'area'],
+    ]],
+    ['Feedback', [
+      ['Feedback — eyebrow', 'feedback.eyebrow'],
+      ['Feedback — heading', 'feedback.heading'],
+      ['Feedback — subtext', 'feedback.sub', 'area'],
+      ['Formspree form ID (optional)', 'feedback.formspreeId'],
+    ]],
+    ['CTA & Footer', [
+      ['CTA — eyebrow', 'cta.eyebrow'],
+      ['CTA — heading', 'cta.heading'],
+      ['CTA — subtext', 'cta.sub', 'area'],
+      ['Footer — copyright', 'footer.copyright'],
+    ]],
+  ];
+
+  // Array editors: path -> field definitions (key + label + type)
+  const ARRAYS = [
+    ['Hero stats', 'hero.stats', [['count','Number','num'],['suffix','Suffix'],['label','Label']]],
+    ['Trust bar items', 'trustbar.items', 'strings'],
+    ['Features', 'features.items', [['icon','Icon'],['title','Title'],['text','Text','area']]],
+    ['Getting Started steps', 'gettingStarted.steps', [['num','No.'],['title','Title'],['text','Text','area']]],
+    ['Audience points', 'audience.points', 'strings'],
+    ['Launch portals', 'access.portals', [['tag','Tag'],['title','Title'],['text','Text'],['href','URL'],['visible','Show','bool']]],
+    ['Team members', 'team.members', [['initial','Initial'],['name','Name'],['role','Role']]],
+  ];
+
+  function fieldRow(label, path, type) {
+    const val = getP(content, path) ?? '';
+    const control = (type === 'area')
+      ? `<textarea data-path="${path}" rows="2">${escA(val)}</textarea>`
+      : `<input type="text" data-path="${path}" value="${esc2(val)}" />`;
+    return `<label class="afield"><span>${label}</span>${control}</label>`;
+  }
 
   function buildFields() {
     const wrap = document.getElementById('formFields');
     wrap.innerHTML = '';
-    FIELDS.forEach(([label, path, type]) => {
-      const row = document.createElement('label');
-      row.className = 'afield';
-      const val = getP(content, path) ?? '';
-      row.innerHTML = `<span>${label}</span>` +
-        (type === 'area'
-          ? `<textarea data-path="${path}" rows="2">${String(val).replace(/</g,'&lt;')}</textarea>`
-          : `<input type="text" data-path="${path}" value="${String(val).replace(/"/g,'&quot;')}" />`);
-      wrap.appendChild(row);
+
+    // Simple grouped text fields
+    GROUPS.forEach(([title, fields]) => {
+      const sec = document.createElement('details');
+      sec.className = 'agroup'; sec.open = true;
+      let html = `<summary>${title}</summary><div class="agrid">`;
+      fields.forEach(([label, path, type]) => { html += fieldRow(label, path, type); });
+      html += '</div>';
+      sec.innerHTML = html;
+      wrap.appendChild(sec);
     });
+
     // Team visibility toggle
-    const t = document.createElement('label');
-    t.className = 'afield toggle';
-    t.innerHTML = `<span>Show team section</span><input type="checkbox" data-path="team.visible" ${content?.team?.visible !== false ? 'checked' : ''} />`;
-    wrap.appendChild(t);
+    const vis = document.createElement('details');
+    vis.className = 'agroup'; vis.open = true;
+    vis.innerHTML = `<summary>Visibility</summary><div class="agrid">
+      <label class="afield toggle"><span>Show team section</span>
+      <input type="checkbox" data-path="team.visible" ${content?.team?.visible !== false ? 'checked' : ''} /></label>
+      <label class="afield toggle"><span>Show admin link in footer</span>
+      <input type="checkbox" data-path="footer.showAdminLink" ${content?.footer?.showAdminLink !== false ? 'checked' : ''} /></label>
+    </div>`;
+    wrap.appendChild(vis);
+
+    // Array editors (lists)
+    ARRAYS.forEach(([title, path, defs]) => {
+      const arr = getP(content, path) || [];
+      const sec = document.createElement('details');
+      sec.className = 'agroup'; sec.dataset.arr = path; sec.dataset.defs = JSON.stringify(defs);
+      let html = `<summary>${title} <span class="count">(${arr.length})</span></summary><div class="alist">`;
+      arr.forEach((item, i) => { html += arrayItemHTML(path, defs, item, i); });
+      html += `</div><button type="button" class="btn btn-ghost add-item" data-arr="${path}">+ Add</button>`;
+      sec.innerHTML = html;
+      wrap.appendChild(sec);
+    });
+
+    // wire add/remove buttons
+    wrap.querySelectorAll('.add-item').forEach((b) => b.addEventListener('click', onAddItem));
+    wrap.querySelectorAll('.del-item').forEach((b) => b.addEventListener('click', onDelItem));
+  }
+
+  function arrayItemHTML(path, defs, item, i) {
+    if (defs === 'strings') {
+      return `<div class="aitem"><input type="text" data-arr="${path}" data-i="${i}" data-key="__str" value="${esc2(item)}" />
+        <button type="button" class="del-item" data-arr="${path}" data-i="${i}">✕</button></div>`;
+    }
+    let inner = defs.map(([key, label, type]) => {
+      const v = item?.[key] ?? '';
+      if (type === 'bool') return `<label class="mini"><input type="checkbox" data-arr="${path}" data-i="${i}" data-key="${key}" ${v ? 'checked' : ''}/> ${label}</label>`;
+      if (type === 'area') return `<label class="mini wide"><span>${label}</span><textarea rows="2" data-arr="${path}" data-i="${i}" data-key="${key}">${escA(v)}</textarea></label>`;
+      const t = type === 'num' ? 'number' : 'text';
+      return `<label class="mini"><span>${label}</span><input type="${t}" data-arr="${path}" data-i="${i}" data-key="${key}" value="${esc2(v)}"/></label>`;
+    }).join('');
+    return `<div class="aitem card">${inner}<button type="button" class="del-item" data-arr="${path}" data-i="${i}">✕ Remove</button></div>`;
+  }
+
+  function onAddItem(e) {
+    collectFields();
+    const path = e.target.dataset.arr;
+    const defs = ARRAYS.find((a) => a[1] === path)[2];
+    const arr = getP(content, path) || [];
+    if (defs === 'strings') arr.push('New item');
+    else { const o = {}; defs.forEach(([k,,t]) => o[k] = (t === 'bool' ? true : (t === 'num' ? 0 : ''))); arr.push(o); }
+    setP(content, path, arr);
+    buildFields();
+  }
+  function onDelItem(e) {
+    collectFields();
+    const path = e.target.dataset.arr, i = +e.target.dataset.i;
+    const arr = getP(content, path) || [];
+    arr.splice(i, 1);
+    setP(content, path, arr);
+    buildFields();
   }
 
   function collectFields() {
+    // simple fields
     document.querySelectorAll('[data-path]').forEach((n) => {
       const path = n.getAttribute('data-path');
       if (n.type === 'checkbox') setP(content, path, n.checked);
       else setP(content, path, n.value);
+    });
+    // array fields
+    document.querySelectorAll('[data-arr][data-i]').forEach((n) => {
+      const path = n.dataset.arr, i = +n.dataset.i, key = n.dataset.key;
+      const arr = getP(content, path) || [];
+      if (key === '__str') { arr[i] = n.value; }
+      else {
+        arr[i] = arr[i] || {};
+        if (n.type === 'checkbox') arr[i][key] = n.checked;
+        else if (n.type === 'number') arr[i][key] = n.value === '' ? '' : Number(n.value);
+        else arr[i][key] = n.value;
+      }
+      setP(content, path, arr);
     });
   }
 

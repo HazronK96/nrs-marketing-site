@@ -144,6 +144,13 @@ function render(c) {
     });
   }
 
+  // Discreet admin link (toggle with footer.showAdminLink)
+  const adminLink = $('#adminLink');
+  if (adminLink) adminLink.style.display = (c.footer && c.footer.showAdminLink === false) ? 'none' : '';
+
+  // Stash the Formspree id for the feedback handler
+  window.__NRS_FORMSPREE_ID = (c.feedback && c.feedback.formspreeId) || '';
+
   // Footer year
   const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
 }
@@ -177,11 +184,16 @@ function initAnimations() {
   document.querySelectorAll('.hero-stats strong[data-count]').forEach((e) => statIO.observe(e));
 }
 
-// Feedback form -> localStorage (admin.html can read these)
+// Feedback form.
+//  • If a Formspree form id is set (content.json -> feedback.formspreeId),
+//    submissions are POSTed there so they persist across ALL visitors
+//    (and are emailed to you / visible in your Formspree dashboard).
+//  • A copy is always kept in localStorage too, so the admin "Feedback" tab
+//    still works and nothing is lost if the network call fails.
 function initFeedback() {
   const form = $('#feedbackForm');
   if (!form) return;
-  form.addEventListener('submit', (ev) => {
+  form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const status = $('#fbStatus');
     const data = {
@@ -196,13 +208,47 @@ function initFeedback() {
       status.className = 'fb-status err';
       return;
     }
+
+    // Always keep a local copy (admin tab reads these)
     let list = [];
     try { list = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); } catch (e) {}
     list.push(data);
     localStorage.setItem(FEEDBACK_KEY, JSON.stringify(list));
-    form.reset();
-    status.textContent = '✓ Thanks! Your feedback was recorded.';
-    status.className = 'fb-status ok';
+
+    const formspreeId = window.__NRS_FORMSPREE_ID || '';
+    const btn = form.querySelector('button[type=submit]');
+
+    if (formspreeId) {
+      // Send to Formspree so feedback persists for everyone
+      status.textContent = 'Sending…';
+      status.className = 'fb-status';
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch('https://formspree.io/f/' + formspreeId, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          form.reset();
+          status.textContent = '✓ Thanks! Your feedback was sent.';
+          status.className = 'fb-status ok';
+        } else {
+          status.textContent = '✓ Saved locally (server rejected the send).';
+          status.className = 'fb-status ok';
+        }
+      } catch (e) {
+        status.textContent = '✓ Saved locally (offline — will not sync).';
+        status.className = 'fb-status ok';
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    } else {
+      // No Formspree id configured -> local-only mode
+      form.reset();
+      status.textContent = '✓ Thanks! Your feedback was recorded.';
+      status.className = 'fb-status ok';
+    }
   });
 }
 

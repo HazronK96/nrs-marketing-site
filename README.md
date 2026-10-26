@@ -35,10 +35,17 @@ The site is now **data-driven**: all text lives in `content.json` and is rendere
 
 ### User feedback
 - The site has a **feedback form** (the "Feedback" section).
-- Submissions are stored in the browser (localStorage) and shown in the
+- Submissions are always stored in the browser (localStorage) and shown in the
   **Feedback tab** of `admin.html`, where you can export them to CSV.
-- For feedback that persists across all visitors, wire the form to a free service
-  (e.g. Formspree) or a small backend later — optional, not required for the demo.
+
+**Make feedback persist across ALL visitors (free, no backend) — Formspree:**
+1. Sign up free at https://formspree.io and create a new form.
+2. Copy its form ID (the part after `/f/` in the endpoint, e.g. `abcdwxyz`).
+3. Paste it into `feedback.formspreeId` in `content.json` (or the
+   "Formspree form ID" field in the admin panel), then re-push.
+4. Submissions are now emailed to you and visible in your Formspree dashboard.
+   (A local copy is still kept for the admin Feedback tab.)
+- Leave `formspreeId` blank to stay in local-only mode (fine for a demo).
 
 ## How to run it
 
@@ -56,8 +63,11 @@ Open `showcase.html` full-screen (`F11`) and screen-record one 30-second loop
 ## Customise notes
 
 - **Tagline:** edit `hero.tagline` in `content.json` (or via admin).
-- **Hide the team section:** set `team.visible` to `false` in `content.json` (or untick it in admin).
-- **Show the original build again:** set its `visible` to `true` under `access.portals` and `footer.links` in `content.json`.
+- **Hide the team section:** set `team.visible` to `false` (or untick it in admin).
+- **Show the original build again:** set its `visible` to `true` under `access.portals` and `footer.links`.
+- **Hide the discreet admin link:** set `footer.showAdminLink` to `false` (or untick in admin).
+- **Edit lists** (features, steps, stats, audience points, launch portals, team members):
+  use the collapsible list editors in the admin panel — add, remove, and edit items.
 
 ---
 

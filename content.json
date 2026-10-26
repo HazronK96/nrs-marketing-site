@@ -87,7 +87,8 @@
   "feedback": {
     "eyebrow": "▶ Your turn",
     "heading": "Send us your feedback",
-    "sub": "Spotted a bug, love a feature, or have an idea? Drop us a message — the team reads every one."
+    "sub": "Spotted a bug, love a feature, or have an idea? Drop us a message — the team reads every one.",
+    "formspreeId": ""
   },
   "team": {
     "visible": true,
@@ -112,6 +113,7 @@
     "links": [
       { "label": "nrs.rabutenri.com", "href": "https://nrs.rabutenri.com/", "visible": true },
       { "label": "fyp-nrs.geyser.host", "href": "https://fyp-nrs.geyser.host/", "visible": false }
-    ]
+    ],
+    "showAdminLink": true
   }
 }

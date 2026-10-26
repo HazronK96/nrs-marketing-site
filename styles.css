@@ -243,6 +243,29 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 .afield input:focus,.afield textarea:focus{outline:none;border-color:var(--brand2)}
 .afield.toggle input{width:20px;height:20px}
 
+/* admin collapsible groups + array editors */
+.agroup{border:1px solid var(--line);border-radius:12px;padding:6px 16px 16px;margin-bottom:16px;background:rgba(255,255,255,.02)}
+.agroup>summary{cursor:pointer;font-family:'Orbitron',sans-serif;font-weight:700;color:var(--brand2);padding:10px 0;list-style:none}
+.agroup>summary::-webkit-details-marker{display:none}
+.agroup>summary::before{content:"▸ ";color:var(--brand)}
+.agroup[open]>summary::before{content:"▾ "}
+.agroup .count{color:var(--ink-soft);font-weight:400;font-size:.85rem}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.alist{display:grid;gap:12px;margin-top:8px}
+.aitem{display:flex;gap:8px;align-items:center}
+.aitem.card{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;align-items:end;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:14px}
+.aitem input[type=text],.aitem input[type=number],.aitem textarea{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:8px;padding:9px 11px;color:var(--ink);font-family:inherit;font-size:.9rem}
+.aitem input:focus,.aitem textarea:focus{outline:none;border-color:var(--brand2)}
+.mini{display:flex;flex-direction:column;gap:5px;font-size:.78rem;color:var(--ink-soft);font-weight:600}
+.mini.wide{grid-column:1/-1}
+.mini input[type=checkbox]{width:18px;height:18px}
+.del-item{background:rgba(255,46,151,.12);border:1px solid rgba(255,46,151,.35);color:var(--hot);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap}
+.add-item{margin-top:12px}
+
+/* discreet admin link in footer */
+.admin-dot{color:var(--ink-soft);opacity:.35;margin-left:6px;text-decoration:none;transition:opacity .2s,color .2s}
+.admin-dot:hover{opacity:1;color:var(--brand2)}
+
 .feedback-list{display:grid;gap:14px}
 .feedback-list .empty{color:var(--ink-soft)}
 .fb-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}

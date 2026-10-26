@@ -227,7 +227,10 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span></span>
+      <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span>
+        <!-- discreet admin link (toggle with footer.showAdminLink in content.json) -->
+        <a class="admin-dot" id="adminLink" href="admin.html" title="Admin" aria-label="Admin">·</a>
+      </span>
       <span class="footer-links" id="footerLinks"><!-- links injected --></span>
     </div>
   </footer>
