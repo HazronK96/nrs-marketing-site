@@ -79,7 +79,7 @@
   /* ====================== LOGIN GATE ====================== */
   const gate = document.getElementById('gate');
   const panel = document.getElementById('panel');
-  function unlock() { gate.hidden = true; panel.hidden = false; boot(); }
+  function unlock() { gate.hidden = true; gate.style.display = 'none'; panel.hidden = false; boot(); }
   if (!REQUIRE_LOGIN) {
     unlock();
   } else {
