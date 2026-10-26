@@ -269,6 +269,8 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 .admin-ico{font-size:.9em}
 
 /* ===== Admin OVERLAY (on index.html) ===== */
+/* make the hidden attribute reliably win over the display rules below */
+.ov-backdrop[hidden],.ov-login[hidden],.ov-panel[hidden]{display:none !important}
 .ov-backdrop{position:fixed;inset:0;z-index:900;background:rgba(3,2,10,.6);backdrop-filter:blur(3px)}
 .ov-login{position:fixed;inset:0;z-index:920;display:grid;place-items:center;padding:24px}
 .ov-login-card{display:grid;gap:14px;text-align:center;background:var(--bg-soft);border:1px solid var(--line);border-radius:18px;padding:34px;max-width:360px;width:100%;box-shadow:0 0 60px rgba(139,92,255,.4)}

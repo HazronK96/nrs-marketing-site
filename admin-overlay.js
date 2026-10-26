@@ -186,8 +186,8 @@
   }
 
   // ---------------- open / close / tabs ----------------
-  function show(eln) { eln.hidden = false; }
-  function hide(eln) { eln.hidden = true; }
+  function show(eln) { eln.hidden = false; eln.style.display = ''; }
+  function hide(eln) { eln.hidden = true; eln.style.display = 'none'; }
 
   async function openPanel() {
     content = await loadContent(false);
