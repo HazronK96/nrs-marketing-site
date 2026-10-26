@@ -150,6 +150,8 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 
 /* ===== Portals (launch links) ===== */
 .portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+/* when only one portal is shown, center it at a readable width */
+.portal-grid:has(> .portal:only-child){grid-template-columns:minmax(0,560px);justify-content:center}
 .portal{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;backdrop-filter:blur(4px)}
 .portal:hover{transform:translateY(-6px);border-color:var(--brand2);box-shadow:0 0 44px rgba(0,229,255,.3)}
 .portal-tag{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(170,255,0,.3);padding:.3em .8em;border-radius:999px}
