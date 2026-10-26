@@ -263,9 +263,10 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 .del-item{background:rgba(255,46,151,.12);border:1px solid rgba(255,46,151,.35);color:var(--hot);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap}
 .add-item{margin-top:12px}
 
-/* subtle (but visible) admin link in footer */
-.admin-link{color:var(--ink-soft);opacity:.6;font-size:.82rem;letter-spacing:.04em;text-decoration:none;border:1px solid var(--line);padding:3px 12px;border-radius:999px;transition:opacity .2s,color .2s,border-color .2s}
-.admin-link:hover{opacity:1;color:var(--brand2);border-color:var(--brand2)}
+/* admin link in footer — clearly visible, tasteful (not loud) */
+.admin-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);opacity:.85;font-size:.86rem;font-weight:600;letter-spacing:.03em;text-decoration:none;border:1px solid var(--line);background:rgba(139,92,255,.08);padding:6px 16px;border-radius:999px;transition:all .2s ease}
+.admin-link:hover{opacity:1;color:var(--brand2);border-color:var(--brand2);background:rgba(0,229,255,.1);box-shadow:0 0 16px rgba(0,229,255,.2)}
+.admin-ico{font-size:.9em}
 
 /* ===== Admin OVERLAY (on index.html) ===== */
 .ov-backdrop{position:fixed;inset:0;z-index:900;background:rgba(3,2,10,.6);backdrop-filter:blur(3px)}

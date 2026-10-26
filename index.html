@@ -237,8 +237,10 @@
     <div class="container footer-inner">
       <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span></span>
       <span class="footer-links" id="footerLinks"><!-- links injected --></span>
-      <!-- subtle admin link — opens the admin overlay on this page (toggle with footer.showAdminLink) -->
-      <a class="admin-link" id="adminLink" href="#" role="button" title="Admin login (Ctrl+Shift+A)">Admin</a>
+      <!-- admin link — opens the admin overlay on this page (toggle with footer.showAdminLink) -->
+      <a class="admin-link" id="adminLink" href="#" role="button" title="Admin login (Ctrl+Shift+A)">
+        <span class="admin-ico" aria-hidden="true">🔒</span> Admin
+      </a>
     </div>
   </footer>
 
