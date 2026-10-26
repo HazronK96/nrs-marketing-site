@@ -16,7 +16,7 @@ I can't render a video file directly, so here's the fastest path to a finished c
 
 **Option B — Record the real app (most authentic)**
 Screen-record the live app, following the shot list below, then lay narration on top.
-Use either live build: `https://nrs.rabutenri.com/` or `https://fyp-nrs.geyser.host/`
+Use the live build: `https://nrs.rabutenri.com/`
 
 **Option C — Hybrid (recommended)**
 Intro + outro from `showcase.html`, real app footage for the middle.
@@ -37,7 +37,7 @@ Intro + outro from `showcase.html`, real app footage for the middle.
 | **0:10–0:15.5** | One feed | Platform chips light up | *"One feed. Nintendo, PlayStation, Xbox, PC — every drop that matters."* |
 | **0:15.5–0:21** | Stats | Counters hit 6+ / 3s / 100% | *"Six-plus channels. Key points in three seconds. A hundred percent sourced."* |
 | **0:21–0:25.5** | Features | Sources · Bookmarks · Create · Trending | *"Verified sources, bookmarks, trending drops — publish your own."* |
-| **0:25.5–0:30** | CTA | "PRESS PLAY ON THE NEWS" + URLs | *"Press play on the news. Jump in now."* |
+| **0:25.5–0:30** | CTA | "PRESS PLAY ON THE NEWS" + URL | *"Press play on the news. Jump in now."* |
 
 **Word count:** ~60 words — fits a snappy 30 seconds.
 **No voiceover?** The on-screen text tells the whole story — just add music.
@@ -55,7 +55,7 @@ Intro + outro from `showcase.html`, real app footage for the middle.
 | 3 | 0:10–0:15.5 | Click category tabs: Nintendo → PlayStation → PC | Snap-click each |
 | 4 | 0:15.5–0:21 | Open an article; zoom on the **"Key points"** block | Punch-in |
 | 5 | 0:21–0:25.5 | **"Sources"** list, then Bookmark + Create nav | Quick cuts |
-| 6 | 0:25.5–0:30 | `showcase.html` outro: PRESS PLAY + both URLs | Hold on logo |
+| 6 | 0:25.5–0:30 | `showcase.html` outro: PRESS PLAY + URL | Hold on logo |
 
 ---
 
