@@ -72,8 +72,9 @@
       "Readers who care where a story actually came from",
       "Writers who want a simple way to publish game news"
     ],
-    "quote": "The news that matters, summarised and sourced — so I actually know what's going on before I click.",
-    "quoteBy": "— the experience we're building for every gamer"
+    "_note_quote": "This is the highlight/value-statement callout box in the 'Who it's for' section (NOT a real user testimonial). Reword freely, or remove it entirely by deleting the whole <div class='quote-card'> in index.html.",
+    "quote": "Summarised, sourced, and built for gamers — so you know what's really going on before you click.",
+    "quoteBy": "The News Release System promise"
   },
   "access": {
     "eyebrow": "Launch",
