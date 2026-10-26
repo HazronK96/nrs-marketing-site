@@ -1,44 +1,64 @@
 # News Release System — Marketing Site & Video Showcase
 
-A futuristic, gamer-styled marketing website and 30-second video package for the
-**News Release System**, a gamer-first game-news platform.
+A futuristic, gamer-styled **dynamic** marketing website and 30-second video package
+for the **News Release System**, a gamer-first game-news platform.
 
-🔗 **Live builds:**
-- https://nrs.rabutenri.com/ (primary / latest test build)
-- https://fyp-nrs.geyser.host/ (original build)
+🔗 **Live build:** https://nrs.rabutenri.com/
 
 ## What's in here
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The marketing website (open this in a browser) |
+| `index.html` | The marketing website (renders content dynamically from `content.json`) |
+| `content.json` | **All site content** — edit here, or via `admin.html` |
+| `admin.html` | Password-gated admin panel: edit content + view user feedback |
 | `styles.css` | Futuristic/gamer styling (neon, grid, glow, glassmorphism) |
-| `script.js` | Scroll reveals + animated stat counters |
-| `showcase.html` | Auto-playing 30-second animated showcase — screen-record this to make the video |
-| `VIDEO-SCRIPT.md` | Narration script, storyboard/shot list, and tagline options |
-| `previous-version/` | The earlier (light-theme) version, archived for reference |
+| `script.js` | Loads content, renders the site, handles the feedback form |
+| `showcase.html` | Auto-playing 30-second animated showcase (for the video) |
+| `VIDEO-SCRIPT.md` | Narration script, storyboard/shot list, tagline options |
+| `previous-version/` | The earlier (static) version, archived for reference |
+
+## Dynamic content (what changed)
+
+The site is now **data-driven**: all text lives in `content.json` and is rendered by
+`script.js`. There are two ways to change content:
+
+1. **Admin panel (recommended):** open `admin.html`, log in, edit the fields.
+   - **Apply changes** → saves to this browser (localStorage) so the live site updates instantly here.
+   - **Export JSON** → downloads an updated `content.json`. Replace the file and re-push to make it permanent for everyone.
+2. **Edit `content.json` directly** and re-push.
+
+### Admin login
+- Default password: `admin123` (change `ADMIN_PASSWORD` in `admin.html`).
+- To disable the login gate entirely, set `REQUIRE_LOGIN = false` in `admin.html`.
+- Note: this is a **client-side demo gate**, not real server security.
+
+### User feedback
+- The site has a **feedback form** (the "Feedback" section).
+- Submissions are stored in the browser (localStorage) and shown in the
+  **Feedback tab** of `admin.html`, where you can export them to CSV.
+- For feedback that persists across all visitors, wire the form to a free service
+  (e.g. Formspree) or a small backend later — optional, not required for the demo.
 
 ## How to run it
 
-**No PHP, no server, no build step** — plain HTML/CSS/JS.
+Because the site **fetches `content.json`**, run it from a local server (not by
+double-clicking the file, which browsers block for `fetch`):
 
-- **Easiest:** download the files into one folder and double-click `index.html`.
-- **In VS Code:** install the *Live Server* extension, then right-click `index.html` → *Open with Live Server*.
-- **Online:** publish free via GitHub Pages (Settings → Pages → Deploy from branch → `main`).
+- **In VS Code:** install the *Live Server* extension → right-click `index.html` → *Open with Live Server*.
+- **Online:** GitHub Pages (Settings → Pages → Deploy from branch → `main`) serves it fine.
 
 ## The video
 
-Open `showcase.html` full-screen (press `F11`) and screen-record one 30-second loop
-with OBS, Windows Game Bar (`Win+G`), or macOS (`Cmd+Shift+5`). See `VIDEO-SCRIPT.md`
-for the narration and shot list.
+Open `showcase.html` full-screen (`F11`) and screen-record one 30-second loop
+(OBS / Windows Game Bar / macOS screen record). See `VIDEO-SCRIPT.md`.
 
-## Customise
+## Customise notes
 
-- **Tagline** — in `index.html`, search for the `TAGLINE` comment and change one line
-  (six options in `VIDEO-SCRIPT.md`). Also update scene 1 of `showcase.html` to match.
-- **Remove the team section** — in `index.html`, delete everything between the
-  `<!-- TEAM START -->` and `<!-- TEAM END -->` comments. That's the only block to remove.
+- **Tagline:** edit `hero.tagline` in `content.json` (or via admin).
+- **Hide the team section:** set `team.visible` to `false` in `content.json` (or untick it in admin).
+- **Show the original build again:** set its `visible` to `true` under `access.portals` and `footer.links` in `content.json`.
 
 ---
 
-News Release System — game news, cut to the point.
+News Release System — the future of the feed.

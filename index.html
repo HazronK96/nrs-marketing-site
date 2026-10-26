@@ -16,20 +16,22 @@
   <div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="scanlines" aria-hidden="true"></div>
 
+  <!--
+    ===========================================================================
+    DYNAMIC SITE — content is loaded from content.json by script.js.
+    To edit the text/content, use admin.html (friendly editor) OR edit
+    content.json directly. You usually do NOT need to edit this file.
+    ===========================================================================
+  -->
+
   <!-- ===== Header ===== -->
   <header class="site-header" id="top">
     <div class="container nav">
       <a href="#top" class="brand">
-        <span class="brand-mark">N</span>
-        <span class="brand-text">News Release System</span>
+        <span class="brand-mark" data-bind="brand.mark">N</span>
+        <span class="brand-text" data-bind="brand.name">News Release System</span>
       </a>
-      <nav class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#watch">Watch</a>
-        <a href="#how">Protocol</a>
-        <a href="#audience">For gamers</a>
-        <a href="#access">Launch</a>
-      </nav>
+      <nav class="nav-links" id="navLinks"><!-- nav links injected --></nav>
       <a class="btn btn-primary" href="#access">Enter the grid ↗</a>
     </div>
   </header>
@@ -38,28 +40,21 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">▶ System online</span>
+        <span class="eyebrow" data-bind="hero.eyebrow">▶ System online</span>
         <h1 class="hero-title">
-          Game news, <span class="grad glow">from the future.</span>
+          <span data-bind="hero.titleLead">Game news,</span>
+          <span class="grad glow" data-bind="hero.titleHighlight">from the future.</span>
         </h1>
-        <!-- TAGLINE: swap the text below to change it (options in VIDEO-SCRIPT.md) -->
-        <p class="hero-tagline" id="tagline">The future of the feed.</p>
-        <p class="hero-sub">
-          The <strong>News Release System</strong> streams Nintendo, PlayStation, Xbox and PC news into one neon-lit feed —
-          with instant <strong>key-point summaries</strong> and <strong>verified, linked sources</strong>. Signal only. Zero noise.
-        </p>
+        <p class="hero-tagline" data-bind="hero.tagline">The future of the feed.</p>
+        <p class="hero-sub" data-bind="hero.sub"></p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="#access">Launch the app ↗</a>
-          <a class="btn btn-ghost btn-lg" href="#features">Scan features</a>
+          <a class="btn btn-primary btn-lg" id="heroPrimary" href="#access">Launch the app ↗</a>
+          <a class="btn btn-ghost btn-lg" id="heroSecondary" href="#features">Scan features</a>
         </div>
-        <ul class="hero-stats">
-          <li><strong data-count="6" data-suffix="+">6+</strong><span>news channels</span></li>
-          <li><strong data-count="3" data-suffix="s">3s</strong><span>to key points</span></li>
-          <li><strong data-count="100" data-suffix="%">100%</strong><span>sourced</span></li>
-        </ul>
+        <ul class="hero-stats" id="heroStats"><!-- stats injected --></ul>
       </div>
 
-      <!-- Holographic browser mockup -->
+      <!-- Holographic browser mockup (decorative, static) -->
       <div class="hero-mock" aria-hidden="true">
         <div class="browser">
           <div class="browser-bar">
@@ -100,55 +95,24 @@
   <!-- ===== Trust bar ===== -->
   <section class="trustbar">
     <div class="container">
-      <p>Engineered for the way gamers actually read</p>
-      <div class="trust-items">
-        <span>⚡ Lightning feed</span>
-        <span>📝 Key-point summaries</span>
-        <span>🔗 Linked sources</span>
-        <span>🔖 Bookmarks &amp; profiles</span>
-        <span>✍️ Create &amp; publish</span>
-      </div>
+      <p data-bind="trustbar.heading">Engineered for the way gamers actually read</p>
+      <div class="trust-items" id="trustItems"><!-- items injected --></div>
     </div>
   </section>
 
-  <!-- ============================================================= -->
-  <!-- ===== WATCH / VIDEO SECTION =============================== -->
-  <!-- To use a REAL recorded video later, see the two swap options -->
-  <!-- marked "SWAP OPTION" inside the .player below.                -->
-  <!-- ============================================================= -->
+  <!-- ===== Watch / video ===== -->
   <section class="section" id="watch">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">▶ Watch</span>
-        <h2>See it in motion</h2>
-        <p>A 30-second look at the News Release System — summarised, sourced, built for gamers.</p>
+        <span class="eyebrow" data-bind="watch.eyebrow">▶ Watch</span>
+        <h2 data-bind="watch.heading">See it in motion</h2>
+        <p data-bind="watch.sub"></p>
       </div>
-
       <div class="player">
         <!-- CURRENT: embeds the animated showcase.html (no video file needed) -->
         <iframe class="player-frame" src="showcase.html" title="News Release System showcase" loading="lazy"></iframe>
-
-        <!-- ===== SWAP OPTION A — real recorded .mp4 =====
-             1) Record showcase.html (or the app) to a file, e.g. nrs-video.mp4
-             2) Put it in this folder
-             3) Delete the <iframe> above and uncomment the block below:
-        <video class="player-frame" controls poster="" preload="metadata">
-          <source src="nrs-video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        ================================================= -->
-
-        <!-- ===== SWAP OPTION B — YouTube embed =====
-             1) Upload the video to YouTube
-             2) Delete the <iframe> above and uncomment the block below,
-                replacing VIDEO_ID with your video's id:
-        <iframe class="player-frame" src="https://www.youtube.com/embed/VIDEO_ID"
-          title="News Release System" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-        ========================================== -->
+        <!-- To swap in a real .mp4 or a YouTube embed later, replace the iframe above. -->
       </div>
-
       <p class="player-note">Tip: open <code>showcase.html</code> full-screen and screen-record one loop to export a shareable video.</p>
     </div>
   </section>
@@ -157,69 +121,22 @@
   <section class="section section-alt" id="features">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Features</span>
-        <h2>Your command center for game news</h2>
-        <p>One idea drives it all: get the real story, fast, without the clickbait.</p>
+        <span class="eyebrow" data-bind="features.eyebrow">Features</span>
+        <h2 data-bind="features.heading"></h2>
+        <p data-bind="features.sub"></p>
       </div>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="f-icon">🎮</div>
-          <h3>Multi-platform channels</h3>
-          <p>Jump straight to Nintendo, PlayStation, Xbox, PC or Reviews — or stream everything in one unified feed.</p>
-        </div>
-        <div class="feature-card">
-          <div class="f-icon">⭐</div>
-          <h3>Key-point summaries</h3>
-          <p>Every release leads with a bullet-point briefing, so you grasp the story in seconds before diving deeper.</p>
-        </div>
-        <div class="feature-card">
-          <div class="f-icon">🔗</div>
-          <h3>Verified sources</h3>
-          <p>Each story links back to its original outlets — read with confidence and follow the trail yourself.</p>
-        </div>
-        <div class="feature-card">
-          <div class="f-icon">🔖</div>
-          <h3>Bookmarks &amp; profiles</h3>
-          <p>Save stories for later and build a profile around the topics and platforms you care about most.</p>
-        </div>
-        <div class="feature-card">
-          <div class="f-icon">✍️</div>
-          <h3>Create &amp; publish</h3>
-          <p>Authors draft and publish releases through a dedicated creation flow, with tasks to manage the pipeline.</p>
-        </div>
-        <div class="feature-card">
-          <div class="f-icon">🔥</div>
-          <h3>Trending &amp; topics</h3>
-          <p>Discover what the community is reading with Trending News and topics like Esports and Indie Games.</p>
-        </div>
-      </div>
+      <div class="feature-grid" id="featureGrid"><!-- features injected --></div>
     </div>
   </section>
 
-  <!-- ===== How it works / Protocol ===== -->
+  <!-- ===== Getting Started (renamed from Protocol) ===== -->
   <section class="section" id="how">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">The protocol</span>
-        <h2>From headline to the full story in three steps</h2>
+        <span class="eyebrow" data-bind="gettingStarted.eyebrow">Getting started</span>
+        <h2 data-bind="gettingStarted.heading"></h2>
       </div>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num">01</span>
-          <h3>Discover</h3>
-          <p>Open a clean, sortable feed and filter by your platform. Trending and recommended topics surface what matters now.</p>
-        </div>
-        <div class="step">
-          <span class="step-num">02</span>
-          <h3>Read smart</h3>
-          <p>Lead with the key points, then read the full release — every claim backed by linked original sources.</p>
-        </div>
-        <div class="step">
-          <span class="step-num">03</span>
-          <h3>Save &amp; share</h3>
-          <p>Bookmark stories, manage them from your profile, and — as an author — create and publish your own releases.</p>
-        </div>
-      </div>
+      <div class="steps" id="stepsGrid"><!-- steps injected --></div>
     </div>
   </section>
 
@@ -227,128 +144,91 @@
   <section class="section section-alt" id="audience">
     <div class="container audience-grid">
       <div>
-        <span class="eyebrow">Who it's for</span>
-        <h2>Built for gamers who want signal, not noise</h2>
-        <p>Gaming news moves fast and spreads thin across dozens of sites. NRS pulls it together, trims it down, and keeps it honest — so you spend less time hunting and more time playing.</p>
-        <ul class="check-list">
-          <li>Console &amp; PC players tracking releases, prices and updates</li>
-          <li>Fans who want a quick, trustworthy briefing at a glance</li>
-          <li>Readers who care where a story actually came from</li>
-          <li>Writers who want a simple way to publish game news</li>
-        </ul>
+        <span class="eyebrow" data-bind="audience.eyebrow">Who it's for</span>
+        <h2 data-bind="audience.heading"></h2>
+        <p data-bind="audience.text"></p>
+        <ul class="check-list" id="audienceList"><!-- points injected --></ul>
         <a class="btn btn-primary" href="#access">Jump in ↗</a>
       </div>
       <div class="quote-card">
-        <p class="quote">“The news that matters, summarised and sourced — so I actually know what's going on before I click.”</p>
-        <span class="quote-by">— the experience we're building for every gamer</span>
+        <p class="quote" data-bind="audience.quote"></p>
+        <span class="quote-by" data-bind="audience.quoteBy"></span>
       </div>
     </div>
   </section>
 
-  <!-- ===== Launch / Access (both live links) ===== -->
+  <!-- ===== Launch / Access ===== -->
   <section class="section" id="access">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Launch</span>
-        <h2>Enter the News Release System</h2>
-        <p>The live platform is online. Pick a portal and jump straight in.</p>
+        <span class="eyebrow" data-bind="access.eyebrow">Launch</span>
+        <h2 data-bind="access.heading"></h2>
+        <p data-bind="access.sub"></p>
       </div>
-      <div class="portal-grid">
-        <a class="portal" href="https://nrs.rabutenri.com/" target="_blank" rel="noopener">
-          <span class="portal-tag">Primary build</span>
-          <h3>nrs.rabutenri.com</h3>
-          <p>The latest test build of the live platform.</p>
-          <span class="portal-go">Launch ↗</span>
-        </a>
-
-        <!-- ============================================================= -->
-        <!-- ORIGINAL BUILD — hidden for now (to avoid confusion at demo). -->
-        <!-- To SHOW it again: delete the opening comment line below        -->
-        <!-- (the one just before the portal link) and its matching close.  -->
-        <!-- ============================================================= -->
-        <!--
-        <a class="portal" href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">
-          <span class="portal-tag">Original build</span>
-          <h3>fyp-nrs.geyser.host</h3>
-          <p>The original deployment of the platform.</p>
-          <span class="portal-go">Launch ↗</span>
-        </a>
-        -->
-      </div>
+      <div class="portal-grid" id="portalGrid"><!-- portals injected --></div>
     </div>
   </section>
 
-  <!-- ============================================================= -->
-  <!-- TAGLINE OPTIONS — hidden for now (review pending).            -->
-  <!-- To SHOW it again: delete this line and the closing line       -->
-  <!-- marked "END HIDDEN TAGLINES" below.                           -->
-  <!-- To REMOVE permanently: delete everything from here to that    -->
-  <!-- END HIDDEN TAGLINES line.                                     -->
-  <!-- ============================================================= -->
-  <!--
-  <section class="section section-alt" id="taglines">
+  <!-- ===== Feedback (user feedback — stored locally, viewable in admin) ===== -->
+  <section class="section section-alt" id="feedback">
+    <div class="container feedback-wrap">
+      <div class="section-head">
+        <span class="eyebrow" data-bind="feedback.eyebrow">▶ Your turn</span>
+        <h2 data-bind="feedback.heading">Send us your feedback</h2>
+        <p data-bind="feedback.sub"></p>
+      </div>
+      <form class="feedback-form" id="feedbackForm" novalidate>
+        <div class="fb-row">
+          <label>Name
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+          <label>Email <span class="opt">(optional)</span>
+            <input type="email" name="email" placeholder="you@example.com" />
+          </label>
+        </div>
+        <label>Rating
+          <select name="rating">
+            <option value="5">★★★★★ Loved it</option>
+            <option value="4">★★★★ Great</option>
+            <option value="3">★★★ Okay</option>
+            <option value="2">★★ Needs work</option>
+            <option value="1">★ Poor</option>
+          </select>
+        </label>
+        <label>Message
+          <textarea name="message" rows="4" placeholder="What did you think?" required></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary btn-lg">Send feedback ↗</button>
+        <p class="fb-status" id="fbStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Team (toggle visibility in content.json: team.visible) ===== -->
+  <section class="section team-section" id="team">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Options</span>
-        <h2>Tagline options to choose from</h2>
-        <p>Swap the live one in index.html (look for the TAGLINE comment) in a single line.</p>
+        <span class="eyebrow" data-bind="team.eyebrow">The crew</span>
+        <h2 data-bind="team.heading">Meet the team</h2>
       </div>
-      <div class="tag-grid">
-        <div class="tag-card"><span class="tag-k">A</span><p>“Game news, cut to the point.”</p></div>
-        <div class="tag-card"><span class="tag-k">B</span><p>“Signal only. Zero noise.”</p></div>
-        <div class="tag-card"><span class="tag-k">C</span><p>“Press play on the news.”</p></div>
-        <div class="tag-card"><span class="tag-k">D</span><p>“Your game news, decoded.”</p></div>
-        <div class="tag-card"><span class="tag-k">E</span><p>“The future of the feed.” (current)</p></div>
-        <div class="tag-card"><span class="tag-k">F</span><p>“Less scrolling. More playing.”</p></div>
-      </div>
+      <div class="team-slots" id="teamSlots"><!-- members injected --></div>
     </div>
   </section>
-  -->
-  <!-- END HIDDEN TAGLINES -->
-
-  <!-- ============================================================= -->
-  <!-- TEAM SECTION                                                  -->
-  <!-- To REMOVE it: delete everything from the TEAM START line      -->
-  <!-- down to and including the TEAM END line below.                -->
-  <!-- ============================================================= -->
-  <!-- TEAM START -->
-  <section class="section section-alt team-section" id="team">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The crew</span>
-        <h2>Meet the team</h2>
-      </div>
-      <div class="team-slots">
-        <div class="member"><span class="avatar">H</span><strong>Hazron</strong><small>Team Leader</small></div>
-        <div class="member"><span class="avatar">P</span><strong>Priscilla</strong><small>Lead Documentation</small></div>
-        <div class="member"><span class="avatar">Y</span><strong>Yu Yang</strong><small>Developer</small></div>
-        <div class="member"><span class="avatar">B</span><strong>Bryan</strong><small>UI/UX Designer</small></div>
-        <div class="member"><span class="avatar">Y</span><strong>Yong Jun</strong><small>Lead Developer</small></div>
-      </div>
-    </div>
-  </section>
-  <!-- TEAM END -->
 
   <!-- ===== Final CTA ===== -->
   <section class="section cta">
     <div class="container cta-inner">
-      <span class="eyebrow light">▶ Ready player one</span>
-      <h2 class="glow">Press play on the news.</h2>
-      <p class="cta-sub">Stream every drop that matters — summarised, sourced, and built for gamers.</p>
-      <a class="btn btn-light btn-lg" href="#access">Launch the News Release System ↗</a>
+      <span class="eyebrow light" data-bind="cta.eyebrow">▶ Ready player one</span>
+      <h2 class="glow" data-bind="cta.heading">Press play on the news.</h2>
+      <p class="cta-sub" data-bind="cta.sub"></p>
+      <a class="btn btn-light btn-lg" id="ctaButton" href="#access">Launch the News Release System ↗</a>
     </div>
   </section>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>© <span id="year"></span> News Release System</span>
-      <span class="footer-links">
-        <a href="https://nrs.rabutenri.com/" target="_blank" rel="noopener">nrs.rabutenri.com</a>
-        <!-- ORIGINAL BUILD footer link — hidden for now. To show again, delete this comment wrapper. -->
-        <!--
-        <a href="https://fyp-nrs.geyser.host/" target="_blank" rel="noopener">fyp-nrs.geyser.host</a>
-        -->
-      </span>
+      <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span></span>
+      <span class="footer-links" id="footerLinks"><!-- links injected --></span>
     </div>
   </footer>
 

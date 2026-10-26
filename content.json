@@ -1,0 +1,117 @@
+{
+  "brand": {
+    "name": "News Release System",
+    "mark": "N"
+  },
+  "nav": [
+    { "label": "Features", "href": "#features" },
+    { "label": "Watch", "href": "#watch" },
+    { "label": "Getting Started", "href": "#how" },
+    { "label": "For gamers", "href": "#audience" },
+    { "label": "Launch", "href": "#access" },
+    { "label": "Feedback", "href": "#feedback" }
+  ],
+  "hero": {
+    "eyebrow": "▶ System online",
+    "titleLead": "Game news,",
+    "titleHighlight": "from the future.",
+    "tagline": "The future of the feed.",
+    "sub": "The News Release System streams Nintendo, PlayStation, Xbox and PC news into one neon-lit feed — with instant key-point summaries and verified, linked sources. Signal only. Zero noise.",
+    "primaryCta": { "label": "Launch the app ↗", "href": "#access" },
+    "secondaryCta": { "label": "Scan features", "href": "#features" },
+    "stats": [
+      { "count": 6, "suffix": "+", "label": "news channels" },
+      { "count": 3, "suffix": "s", "label": "to key points" },
+      { "count": 100, "suffix": "%", "label": "sourced" }
+    ]
+  },
+  "trustbar": {
+    "heading": "Engineered for the way gamers actually read",
+    "items": [
+      "⚡ Lightning feed",
+      "📝 Key-point summaries",
+      "🔗 Linked sources",
+      "🔖 Bookmarks & profiles",
+      "✍️ Create & publish"
+    ]
+  },
+  "watch": {
+    "eyebrow": "▶ Watch",
+    "heading": "See it in motion",
+    "sub": "A 30-second look at the News Release System — summarised, sourced, built for gamers."
+  },
+  "features": {
+    "eyebrow": "Features",
+    "heading": "Your command center for game news",
+    "sub": "One idea drives it all: get the real story, fast, without the clickbait.",
+    "items": [
+      { "icon": "🎮", "title": "Multi-platform channels", "text": "Jump straight to Nintendo, PlayStation, Xbox, PC or Reviews — or stream everything in one unified feed." },
+      { "icon": "⭐", "title": "Key-point summaries", "text": "Every release leads with a bullet-point briefing, so you grasp the story in seconds before diving deeper." },
+      { "icon": "🔗", "title": "Verified sources", "text": "Each story links back to its original outlets — read with confidence and follow the trail yourself." },
+      { "icon": "🔖", "title": "Bookmarks & profiles", "text": "Save stories for later and build a profile around the topics and platforms you care about most." },
+      { "icon": "✍️", "title": "Create & publish", "text": "Authors draft and publish releases through a dedicated creation flow, with tasks to manage the pipeline." },
+      { "icon": "🔥", "title": "Trending & topics", "text": "Discover what the community is reading with Trending News and topics like Esports and Indie Games." }
+    ]
+  },
+  "gettingStarted": {
+    "eyebrow": "Getting started",
+    "heading": "From headline to the full story in three steps",
+    "steps": [
+      { "num": "01", "title": "Discover", "text": "Open a clean, sortable feed and filter by your platform. Trending and recommended topics surface what matters now." },
+      { "num": "02", "title": "Read smart", "text": "Lead with the key points, then read the full release — every claim backed by linked original sources." },
+      { "num": "03", "title": "Save & share", "text": "Bookmark stories, manage them from your profile, and — as an author — create and publish your own releases." }
+    ]
+  },
+  "audience": {
+    "eyebrow": "Who it's for",
+    "heading": "Built for gamers who want signal, not noise",
+    "text": "Gaming news moves fast and spreads thin across dozens of sites. NRS pulls it together, trims it down, and keeps it honest — so you spend less time hunting and more time playing.",
+    "points": [
+      "Console & PC players tracking releases, prices and updates",
+      "Fans who want a quick, trustworthy briefing at a glance",
+      "Readers who care where a story actually came from",
+      "Writers who want a simple way to publish game news"
+    ],
+    "quote": "The news that matters, summarised and sourced — so I actually know what's going on before I click.",
+    "quoteBy": "— the experience we're building for every gamer"
+  },
+  "access": {
+    "eyebrow": "Launch",
+    "heading": "Enter the News Release System",
+    "sub": "The live platform is online. Pick a portal and jump straight in.",
+    "portals": [
+      { "tag": "Primary build", "title": "nrs.rabutenri.com", "text": "The latest test build of the live platform.", "href": "https://nrs.rabutenri.com/", "visible": true },
+      { "tag": "Original build", "title": "fyp-nrs.geyser.host", "text": "The original deployment of the platform.", "href": "https://fyp-nrs.geyser.host/", "visible": false }
+    ]
+  },
+  "feedback": {
+    "eyebrow": "▶ Your turn",
+    "heading": "Send us your feedback",
+    "sub": "Spotted a bug, love a feature, or have an idea? Drop us a message — the team reads every one."
+  },
+  "team": {
+    "visible": true,
+    "eyebrow": "The crew",
+    "heading": "Meet the team",
+    "members": [
+      { "initial": "H", "name": "Hazron", "role": "Team Leader" },
+      { "initial": "P", "name": "Priscilla", "role": "Lead Documentation" },
+      { "initial": "Y", "name": "Yu Yang", "role": "Developer" },
+      { "initial": "B", "name": "Bryan", "role": "UI/UX Designer" },
+      { "initial": "Y", "name": "Yong Jun", "role": "Lead Developer" }
+    ]
+  },
+  "cta": {
+    "eyebrow": "▶ Ready player one",
+    "heading": "Press play on the news.",
+    "sub": "Stream every drop that matters — summarised, sourced, and built for gamers.",
+    "button": { "label": "Launch the News Release System ↗", "href": "#access" }
+  },
+  "footer": {
+    "copyright": "News Release System",
+    "links": [
+      { "label": "nrs.rabutenri.com", "href": "https://nrs.rabutenri.com/", "visible": true },
+      { "label": "fyp-nrs.geyser.host", "href": "https://fyp-nrs.geyser.host/", "visible": false }
+    ]
+  }
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NRS — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-body">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orbs" aria-hidden="true"><span></span><span></span></div>
+
+  <!-- ============================================================= -->
+  <!-- LOGIN GATE  —  demo only (client-side, not real security).    -->
+  <!-- To DISABLE the login (skip straight to the admin panel):      -->
+  <!--   set  REQUIRE_LOGIN = false  in the <script> near the bottom. -->
+  <!-- Default password is "admin123" (change ADMIN_PASSWORD below).  -->
+  <!-- ============================================================= -->
+  <section class="admin-gate" id="gate">
+    <form class="gate-card" id="gateForm">
+      <div class="admin-logo">N</div>
+      <h1>Admin access</h1>
+      <p>Enter the password to manage site content &amp; feedback.</p>
+      <input type="password" id="gatePass" placeholder="Password" autocomplete="current-password" />
+      <button type="submit" class="btn btn-primary btn-lg">Unlock ↗</button>
+      <p class="gate-err" id="gateErr"></p>
+    </form>
+  </section>
+
+  <!-- ===== Admin panel ===== -->
+  <main class="admin-panel" id="panel" hidden>
+    <header class="admin-top">
+      <div class="admin-brand"><span class="admin-logo sm">N</span> NRS Admin</div>
+      <div class="admin-tabs">
+        <button class="tab active" data-tab="content">Content</button>
+        <button class="tab" data-tab="feedback">Feedback <span class="badge" id="fbCount">0</span></button>
+      </div>
+      <a class="btn btn-ghost" href="index.html" target="_blank" rel="noopener">View site ↗</a>
+    </header>
+
+    <!-- CONTENT TAB -->
+    <section class="admin-view" id="view-content">
+      <div class="admin-bar">
+        <p>Edit the fields, then <strong>Apply</strong> to preview on the live site (this browser). Use <strong>Export</strong> to download an updated <code>content.json</code> for permanent changes.</p>
+        <div class="admin-actions">
+          <button class="btn btn-ghost" id="reloadBtn">Reset to file</button>
+          <button class="btn btn-ghost" id="exportBtn">⬇ Export JSON</button>
+          <button class="btn btn-primary" id="applyBtn">✓ Apply changes</button>
+        </div>
+      </div>
+      <div id="formFields" class="admin-fields"><!-- generated --></div>
+      <div class="admin-actions bottom">
+        <button class="btn btn-primary btn-lg" id="applyBtn2">✓ Apply changes</button>
+        <span class="save-note" id="saveNote"></span>
+      </div>
+    </section>
+
+    <!-- FEEDBACK TAB -->
+    <section class="admin-view" id="view-feedback" hidden>
+      <div class="admin-bar">
+        <p>User feedback submitted on the site (stored in this browser).</p>
+        <div class="admin-actions">
+          <button class="btn btn-ghost" id="exportFb">⬇ Export CSV</button>
+          <button class="btn btn-ghost danger" id="clearFb">Clear all</button>
+        </div>
+      </div>
+      <div id="feedbackList" class="feedback-list"><!-- generated --></div>
+    </section>
+  </main>
+
+  <script>
+  /* ====================== CONFIG ====================== */
+  const REQUIRE_LOGIN = true;          // set to false to skip the login gate
+  const ADMIN_PASSWORD = 'admin123';   // change this to your own password
+  const CONTENT_KEY = 'nrs_content';
+  const FEEDBACK_KEY = 'nrs_feedback';
+
+  /* ====================== LOGIN GATE ====================== */
+  const gate = document.getElementById('gate');
+  const panel = document.getElementById('panel');
+  function unlock() { gate.hidden = true; panel.hidden = false; boot(); }
+  if (!REQUIRE_LOGIN) {
+    unlock();
+  } else {
+    document.getElementById('gateForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pass = document.getElementById('gatePass').value;
+      if (pass === ADMIN_PASSWORD) { unlock(); }
+      else { document.getElementById('gateErr').textContent = 'Incorrect password.'; }
+    });
+  }
+
+  /* ====================== ADMIN LOGIC ====================== */
+  let content = {};
+
+  async function fetchFile() {
+    const res = await fetch('content.json', { cache: 'no-store' });
+    return res.json();
+  }
+  async function loadContent(forceFile) {
+    if (!forceFile) {
+      const saved = localStorage.getItem(CONTENT_KEY);
+      if (saved) { try { return JSON.parse(saved); } catch (e) {} }
+    }
+    return fetchFile();
+  }
+
+  // Fields we expose in the editor (label + path into the JSON)
+  const FIELDS = [
+    ['Brand name', 'brand.name'],
+    ['Hero — eyebrow', 'hero.eyebrow'],
+    ['Hero — title (lead)', 'hero.titleLead'],
+    ['Hero — title (highlight)', 'hero.titleHighlight'],
+    ['Hero — tagline', 'hero.tagline'],
+    ['Hero — subtext', 'hero.sub', 'area'],
+    ['Trust bar — heading', 'trustbar.heading'],
+    ['Watch — eyebrow', 'watch.eyebrow'],
+    ['Watch — heading', 'watch.heading'],
+    ['Watch — subtext', 'watch.sub', 'area'],
+    ['Features — eyebrow', 'features.eyebrow'],
+    ['Features — heading', 'features.heading'],
+    ['Features — subtext', 'features.sub', 'area'],
+    ['Getting Started — eyebrow', 'gettingStarted.eyebrow'],
+    ['Getting Started — heading', 'gettingStarted.heading'],
+    ['Audience — eyebrow', 'audience.eyebrow'],
+    ['Audience — heading', 'audience.heading'],
+    ['Audience — text', 'audience.text', 'area'],
+    ['Audience — quote', 'audience.quote', 'area'],
+    ['Launch — eyebrow', 'access.eyebrow'],
+    ['Launch — heading', 'access.heading'],
+    ['Launch — subtext', 'access.sub', 'area'],
+    ['Feedback — eyebrow', 'feedback.eyebrow'],
+    ['Feedback — heading', 'feedback.heading'],
+    ['Feedback — subtext', 'feedback.sub', 'area'],
+    ['CTA — heading', 'cta.heading'],
+    ['CTA — subtext', 'cta.sub', 'area'],
+    ['Footer — copyright', 'footer.copyright'],
+  ];
+
+  const getP = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+  const setP = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); let t = o; ks.forEach(k => { t[k] = t[k] || {}; t = t[k]; }); t[last] = v; };
+
+  function buildFields() {
+    const wrap = document.getElementById('formFields');
+    wrap.innerHTML = '';
+    FIELDS.forEach(([label, path, type]) => {
+      const row = document.createElement('label');
+      row.className = 'afield';
+      const val = getP(content, path) ?? '';
+      row.innerHTML = `<span>${label}</span>` +
+        (type === 'area'
+          ? `<textarea data-path="${path}" rows="2">${String(val).replace(/</g,'&lt;')}</textarea>`
+          : `<input type="text" data-path="${path}" value="${String(val).replace(/"/g,'&quot;')}" />`);
+      wrap.appendChild(row);
+    });
+    // Team visibility toggle
+    const t = document.createElement('label');
+    t.className = 'afield toggle';
+    t.innerHTML = `<span>Show team section</span><input type="checkbox" data-path="team.visible" ${content?.team?.visible !== false ? 'checked' : ''} />`;
+    wrap.appendChild(t);
+  }
+
+  function collectFields() {
+    document.querySelectorAll('[data-path]').forEach((n) => {
+      const path = n.getAttribute('data-path');
+      if (n.type === 'checkbox') setP(content, path, n.checked);
+      else setP(content, path, n.value);
+    });
+  }
+
+  function apply() {
+    collectFields();
+    localStorage.setItem(CONTENT_KEY, JSON.stringify(content));
+    const note = document.getElementById('saveNote');
+    note.textContent = '✓ Applied. Open/refresh the site to see changes.';
+    setTimeout(() => note.textContent = '', 4000);
+  }
+
+  function exportJSON() {
+    collectFields();
+    const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'content.json'; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  /* ---- Feedback viewer ---- */
+  function loadFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function renderFeedback() {
+    const list = loadFeedback();
+    document.getElementById('fbCount').textContent = list.length;
+    const wrap = document.getElementById('feedbackList');
+    if (!list.length) { wrap.innerHTML = '<p class="empty">No feedback yet. Submissions from the site\'s feedback form appear here.</p>'; return; }
+    wrap.innerHTML = '';
+    list.slice().reverse().forEach((f) => {
+      const stars = '★'.repeat(+f.rating || 0) + '☆'.repeat(5 - (+f.rating || 0));
+      const card = document.createElement('div');
+      card.className = 'fb-card';
+      card.innerHTML = `<div class="fb-head"><strong>${esc(f.name)}</strong>
+        <span class="fb-stars">${stars}</span></div>
+        <div class="fb-sub">${esc(f.email || 'no email')} · ${new Date(f.date).toLocaleString()}</div>
+        <p>${esc(f.message)}</p>`;
+      wrap.appendChild(card);
+    });
+  }
+  function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  function exportCSV() {
+    const list = loadFeedback();
+    const rows = [['date','name','email','rating','message']].concat(
+      list.map(f => [f.date, f.name, f.email, f.rating, (f.message||'').replace(/\n/g,' ')])
+    );
+    const csv = rows.map(r => r.map(c => `"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nrs-feedback.csv'; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  /* ---- Tabs ---- */
+  function initTabs() {
+    document.querySelectorAll('.tab').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        const t = b.dataset.tab;
+        document.getElementById('view-content').hidden = (t !== 'content');
+        document.getElementById('view-feedback').hidden = (t !== 'feedback');
+        if (t === 'feedback') renderFeedback();
+      });
+    });
+  }
+
+  async function boot() {
+    content = await loadContent(false);
+    buildFields();
+    renderFeedback();
+    initTabs();
+    document.getElementById('applyBtn').addEventListener('click', apply);
+    document.getElementById('applyBtn2').addEventListener('click', apply);
+    document.getElementById('exportBtn').addEventListener('click', exportJSON);
+    document.getElementById('reloadBtn').addEventListener('click', async () => {
+      content = await loadContent(true); buildFields();
+      document.getElementById('saveNote').textContent = 'Reset to content.json (not yet applied).';
+    });
+    document.getElementById('exportFb').addEventListener('click', exportCSV);
+    document.getElementById('clearFb').addEventListener('click', () => {
+      if (confirm('Delete all feedback from this browser?')) { localStorage.removeItem(FEEDBACK_KEY); renderFeedback(); }
+    });
+  }
+  </script>
+</body>
+</html>

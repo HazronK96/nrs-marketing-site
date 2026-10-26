@@ -1,42 +1,215 @@
-// Footer year
-document.getElementById('year').textContent = new Date().getFullYear();
+/* =========================================================================
+   News Release System — dynamic marketing site
+   Loads content from content.json, then applies any admin edits saved in
+   localStorage (key: nrs_content). Renders all sections and handles the
+   user feedback form (stored in localStorage key: nrs_feedback).
+   ========================================================================= */
 
-// Scroll reveal
-const revealEls = document.querySelectorAll(
-  '.section-head, .feature-card, .step, .audience-grid > div, .portal, .tag-card, .member, .cta-inner'
-);
-revealEls.forEach((el, i) => {
-  el.classList.add('reveal');
-  el.style.transitionDelay = (i % 3) * 80 + 'ms';
-});
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+const CONTENT_KEY = 'nrs_content';
+const FEEDBACK_KEY = 'nrs_feedback';
+
+// --- helpers ---
+const $ = (sel, root = document) => root.querySelector(sel);
+const el = (tag, cls, html) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (html != null) n.innerHTML = html;
+  return n;
+};
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const getPath = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+
+// Load content: start from content.json, then overlay admin edits from localStorage
+async function loadContent() {
+  let base = {};
+  try {
+    const res = await fetch('content.json', { cache: 'no-store' });
+    base = await res.json();
+  } catch (e) {
+    console.warn('Could not load content.json (are you viewing over a server?)', e);
+  }
+  try {
+    const saved = localStorage.getItem(CONTENT_KEY);
+    if (saved) base = JSON.parse(saved);
+  } catch (e) { /* ignore bad saved data */ }
+  return base;
+}
+
+function render(c) {
+  // Simple data-bind: fill any element with [data-bind="path.to.value"]
+  document.querySelectorAll('[data-bind]').forEach((node) => {
+    const val = getPath(c, node.getAttribute('data-bind'));
+    if (val != null && typeof val === 'string') node.textContent = val;
   });
-}, { threshold: 0.12 });
-revealEls.forEach((el) => io.observe(el));
 
-// Animated hero stat counters
-const stats = document.querySelectorAll('.hero-stats strong[data-count]');
-const statIO = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const to = +el.dataset.count, suf = el.dataset.suffix || '', dur = 1200;
-    let start = null;
-    function step(ts){
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / dur, 1);
-      el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to) + suf; // easeOutCubic
-      if (p < 1) requestAnimationFrame(step);
+  // Nav
+  const nav = $('#navLinks');
+  if (nav && c.nav) {
+    nav.innerHTML = '';
+    c.nav.forEach((n) => { const a = el('a'); a.href = n.href; a.textContent = n.label; nav.appendChild(a); });
+  }
+
+  // Hero CTAs
+  if (c.hero) {
+    const p = $('#heroPrimary'), s = $('#heroSecondary');
+    if (p && c.hero.primaryCta) { p.textContent = c.hero.primaryCta.label; p.href = c.hero.primaryCta.href; }
+    if (s && c.hero.secondaryCta) { s.textContent = c.hero.secondaryCta.label; s.href = c.hero.secondaryCta.href; }
+    // Stats
+    const st = $('#heroStats');
+    if (st && c.hero.stats) {
+      st.innerHTML = '';
+      c.hero.stats.forEach((x) => {
+        const li = el('li');
+        li.innerHTML = `<strong data-count="${esc(x.count)}" data-suffix="${esc(x.suffix || '')}">0</strong><span>${esc(x.label)}</span>`;
+        st.appendChild(li);
+      });
     }
-    requestAnimationFrame(step);
-    statIO.unobserve(el);
-  });
-}, { threshold: 0.5 });
-stats.forEach((el) => statIO.observe(el));
+  }
 
-// Optional: rotate the hero tagline (uncomment to enable)
-// const taglines = ['Game news, cut to the point.', 'Signal only. Zero noise.', 'The future of the feed.'];
-// let t = 0; const tagEl = document.getElementById('tagline');
-// setInterval(() => { t = (t + 1) % taglines.length; tagEl.textContent = taglines[t]; }, 4000);
+  // Trust bar
+  const ti = $('#trustItems');
+  if (ti && c.trustbar?.items) {
+    ti.innerHTML = '';
+    c.trustbar.items.forEach((t) => ti.appendChild(el('span', null, esc(t))));
+  }
+
+  // Features
+  const fg = $('#featureGrid');
+  if (fg && c.features?.items) {
+    fg.innerHTML = '';
+    c.features.items.forEach((f) => {
+      fg.appendChild(el('div', 'feature-card',
+        `<div class="f-icon">${esc(f.icon)}</div><h3>${esc(f.title)}</h3><p>${esc(f.text)}</p>`));
+    });
+  }
+
+  // Getting Started steps
+  const sg = $('#stepsGrid');
+  if (sg && c.gettingStarted?.steps) {
+    sg.innerHTML = '';
+    c.gettingStarted.steps.forEach((s) => {
+      sg.appendChild(el('div', 'step',
+        `<span class="step-num">${esc(s.num)}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>`));
+    });
+  }
+
+  // Audience list
+  const al = $('#audienceList');
+  if (al && c.audience?.points) {
+    al.innerHTML = '';
+    c.audience.points.forEach((p) => al.appendChild(el('li', null, esc(p))));
+  }
+
+  // Portals (respect visible flag)
+  const pg = $('#portalGrid');
+  if (pg && c.access?.portals) {
+    pg.innerHTML = '';
+    c.access.portals.filter((p) => p.visible !== false).forEach((p) => {
+      const a = el('a', 'portal');
+      a.href = p.href; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = `<span class="portal-tag">${esc(p.tag)}</span><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><span class="portal-go">Launch ↗</span>`;
+      pg.appendChild(a);
+    });
+  }
+
+  // Team (respect visible flag)
+  const teamSection = $('#team');
+  if (c.team && c.team.visible === false) {
+    if (teamSection) teamSection.style.display = 'none';
+  } else if (teamSection) {
+    teamSection.style.display = '';
+    const ts = $('#teamSlots');
+    if (ts && c.team?.members) {
+      ts.innerHTML = '';
+      c.team.members.forEach((m) => {
+        ts.appendChild(el('div', 'member',
+          `<span class="avatar">${esc(m.initial)}</span><strong>${esc(m.name)}</strong><small>${esc(m.role)}</small>`));
+      });
+    }
+  }
+
+  // CTA button
+  if (c.cta?.button) {
+    const b = $('#ctaButton');
+    if (b) { b.textContent = c.cta.button.label; b.href = c.cta.button.href; }
+  }
+
+  // Footer links (respect visible flag)
+  const fl = $('#footerLinks');
+  if (fl && c.footer?.links) {
+    fl.innerHTML = '';
+    c.footer.links.filter((l) => l.visible !== false).forEach((l) => {
+      const a = el('a'); a.href = l.href; a.target = '_blank'; a.rel = 'noopener'; a.textContent = l.label;
+      fl.appendChild(a);
+    });
+  }
+
+  // Footer year
+  const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
+}
+
+// Animations: scroll reveal + stat counters (run after render)
+function initAnimations() {
+  const revealEls = document.querySelectorAll(
+    '.section-head, .feature-card, .step, .audience-grid > div, .portal, .member, .cta-inner, .feedback-form'
+  );
+  revealEls.forEach((e, i) => { e.classList.add('reveal'); e.style.transitionDelay = (i % 3) * 80 + 'ms'; });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach((e) => io.observe(e));
+
+  const statIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const node = e.target, to = +node.dataset.count, suf = node.dataset.suffix || '', dur = 1200;
+      let start = null;
+      const step = (ts) => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        node.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      statIO.unobserve(node);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.hero-stats strong[data-count]').forEach((e) => statIO.observe(e));
+}
+
+// Feedback form -> localStorage (admin.html can read these)
+function initFeedback() {
+  const form = $('#feedbackForm');
+  if (!form) return;
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const status = $('#fbStatus');
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      rating: form.rating.value,
+      message: form.message.value.trim(),
+      date: new Date().toISOString()
+    };
+    if (!data.name || !data.message) {
+      status.textContent = 'Please fill in your name and a message.';
+      status.className = 'fb-status err';
+      return;
+    }
+    let list = [];
+    try { list = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); } catch (e) {}
+    list.push(data);
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(list));
+    form.reset();
+    status.textContent = '✓ Thanks! Your feedback was recorded.';
+    status.className = 'fb-status ok';
+  });
+}
+
+// Boot
+(async function () {
+  const content = await loadContent();
+  render(content);
+  initAnimations();
+  initFeedback();
+})();
