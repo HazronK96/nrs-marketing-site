@@ -11,7 +11,8 @@ for the **News Release System**, a gamer-first game-news platform.
 |------|---------|
 | `index.html` | The marketing website (renders content dynamically from `content.json`) |
 | `content.json` | **All site content** — edit here, or via `admin.html` |
-| `admin.html` | Password-gated admin panel: edit content + view user feedback |
+| `admin.html` | Standalone password-gated admin panel (fallback) |
+| `admin-overlay.js` | The admin editor overlay built into `index.html` (footer "Admin" link / Ctrl+Shift+A) |
 | `styles.css` | Futuristic/gamer styling (neon, grid, glow, glassmorphism) |
 | `script.js` | Loads content, renders the site, handles the feedback form |
 | `showcase.html` | Auto-playing 30-second animated showcase (for the video) |
@@ -23,10 +24,15 @@ for the **News Release System**, a gamer-first game-news platform.
 The site is now **data-driven**: all text lives in `content.json` and is rendered by
 `script.js`. There are two ways to change content:
 
-1. **Admin panel (recommended):** open `admin.html`, log in, edit the fields.
+1. **Admin overlay (on the marketing site):** click the subtle **"Admin"** link in the
+   footer of `index.html` (or press `Ctrl+Shift+A`), log in, and an editor panel slides
+   in over the live site. Edit → **Apply** to see changes instantly on the page.
+2. **Standalone admin page:** `admin.html` offers the same editor on its own page (fallback).
+3. **Edit `content.json` directly** and re-push.
+
+For 1 & 2:
    - **Apply changes** → saves to this browser (localStorage) so the live site updates instantly here.
    - **Export JSON** → downloads an updated `content.json`. Replace the file and re-push to make it permanent for everyone.
-2. **Edit `content.json` directly** and re-push.
 
 ### Admin login
 - Default password: `admin123` (change `ADMIN_PASSWORD` in `admin.html`).

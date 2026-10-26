@@ -235,14 +235,72 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span>
-        <!-- discreet admin link (toggle with footer.showAdminLink in content.json) -->
-        <a class="admin-dot" id="adminLink" href="admin.html" title="Admin" aria-label="Admin">·</a>
-      </span>
+      <span>© <span id="year"></span> <span data-bind="footer.copyright">News Release System</span></span>
       <span class="footer-links" id="footerLinks"><!-- links injected --></span>
+      <!-- subtle admin link — opens the admin overlay on this page (toggle with footer.showAdminLink) -->
+      <a class="admin-link" id="adminLink" href="#" role="button" title="Admin login (Ctrl+Shift+A)">Admin</a>
     </div>
   </footer>
 
+  <!-- ============================================================= -->
+  <!-- ADMIN OVERLAY — hidden until the footer "Admin" link or        -->
+  <!-- Ctrl+Shift+A opens it. Visitors never see this; it sits on top -->
+  <!-- of the marketing site only when you open it.                   -->
+  <!-- ============================================================= -->
+  <div class="ov-backdrop" id="ovBackdrop" hidden></div>
+
+  <!-- Login popup -->
+  <div class="ov-login" id="ovLogin" hidden role="dialog" aria-modal="true" aria-label="Admin login">
+    <form class="ov-login-card" id="ovLoginForm">
+      <div class="admin-logo sm">N</div>
+      <h3>Admin access</h3>
+      <p>Enter the password to manage content &amp; feedback.</p>
+      <input type="password" id="ovPass" placeholder="Password" autocomplete="current-password" />
+      <div class="ov-login-actions">
+        <button type="button" class="btn btn-ghost" id="ovLoginCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Unlock ↗</button>
+      </div>
+      <p class="gate-err" id="ovErr"></p>
+    </form>
+  </div>
+
+  <!-- Slide-in admin panel -->
+  <aside class="ov-panel" id="ovPanel" hidden aria-label="Admin panel">
+    <header class="ov-head">
+      <div class="admin-brand"><span class="admin-logo sm">N</span> NRS Admin</div>
+      <div class="admin-tabs">
+        <button class="tab active" data-ovtab="content">Content</button>
+        <button class="tab" data-ovtab="feedback">Feedback <span class="badge" id="ovFbCount">0</span></button>
+      </div>
+      <button class="ov-close" id="ovClose" title="Close">✕</button>
+    </header>
+
+    <div class="ov-view" id="ovView-content">
+      <div class="ov-bar">
+        <p>Edit fields, then <strong>Apply</strong> to preview on this site (this browser). <strong>Export</strong> downloads an updated <code>content.json</code> to re-push for a permanent change.</p>
+        <div class="admin-actions">
+          <button class="btn btn-ghost" id="ovReload">Reset to file</button>
+          <button class="btn btn-ghost" id="ovExport">⬇ Export JSON</button>
+          <button class="btn btn-primary" id="ovApply">✓ Apply</button>
+        </div>
+        <span class="save-note" id="ovNote"></span>
+      </div>
+      <div id="ovFields" class="admin-fields"><!-- generated --></div>
+    </div>
+
+    <div class="ov-view" id="ovView-feedback" hidden>
+      <div class="ov-bar">
+        <p>User feedback submitted on the site (stored in this browser).</p>
+        <div class="admin-actions">
+          <button class="btn btn-ghost" id="ovExportFb">⬇ Export CSV</button>
+          <button class="btn btn-ghost danger" id="ovClearFb">Clear all</button>
+        </div>
+      </div>
+      <div id="ovFeedbackList" class="feedback-list"><!-- generated --></div>
+    </div>
+  </aside>
+
+  <script src="admin-overlay.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

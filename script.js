@@ -252,6 +252,12 @@ function initFeedback() {
   });
 }
 
+// Expose render so the admin overlay can live-refresh the page after "Apply"
+window.NRS_render = function (c) {
+  render(c);
+  initAnimations();
+};
+
 // Boot
 (async function () {
   const content = await loadContent();
