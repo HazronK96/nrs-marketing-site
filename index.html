@@ -194,15 +194,18 @@
             <input type="email" name="email" placeholder="you@example.com" />
           </label>
         </div>
-        <label>Rating
-          <select name="rating">
-            <option value="5">★★★★★ Loved it</option>
-            <option value="4">★★★★ Great</option>
-            <option value="3">★★★ Okay</option>
-            <option value="2">★★ Needs work</option>
-            <option value="1">★ Poor</option>
-          </select>
-        </label>
+        <div class="rating-field">
+          <span class="rating-label">Rating</span>
+          <div class="star-rating" id="starRating" role="radiogroup" aria-label="Rating">
+            <button type="button" class="star" data-val="1" role="radio" aria-label="1 star" aria-checked="false">★</button>
+            <button type="button" class="star" data-val="2" role="radio" aria-label="2 stars" aria-checked="false">★</button>
+            <button type="button" class="star" data-val="3" role="radio" aria-label="3 stars" aria-checked="false">★</button>
+            <button type="button" class="star" data-val="4" role="radio" aria-label="4 stars" aria-checked="false">★</button>
+            <button type="button" class="star" data-val="5" role="radio" aria-label="5 stars" aria-checked="false">★</button>
+            <span class="rating-text" id="ratingText">Tap to rate</span>
+          </div>
+          <input type="hidden" name="rating" id="ratingValue" value="5" />
+        </div>
         <label>Message
           <textarea name="message" rows="4" placeholder="What did you think?" required></textarea>
         </label>

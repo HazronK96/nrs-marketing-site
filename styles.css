@@ -207,6 +207,16 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
   outline:none;border-color:var(--brand2);box-shadow:0 0 0 3px rgba(0,229,255,.15)}
 .feedback-form textarea{resize:vertical}
 .feedback-form .btn{justify-self:start}
+/* interactive star rating */
+.rating-field{display:flex;flex-direction:column;gap:8px}
+.rating-label{font-weight:600;color:var(--ink);font-size:.92rem}
+.star-rating{display:flex;align-items:center;gap:4px}
+.star-rating .star{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;padding:0 2px;
+  color:rgba(154,166,214,.3);transition:color .12s ease,transform .12s ease,text-shadow .12s ease}
+.star-rating .star:hover{transform:scale(1.18)}
+.star-rating .star.on{color:#ffd34d;text-shadow:0 0 14px rgba(255,211,77,.7)}
+.star-rating .star:focus-visible{outline:2px solid var(--brand2);outline-offset:3px;border-radius:6px}
+.rating-text{margin-left:12px;font-size:.9rem;font-weight:600;color:var(--brand2);min-width:8ch}
 .fb-status{margin:0;font-weight:600;min-height:1.2em}
 .fb-status.ok{color:var(--lime);text-shadow:0 0 10px rgba(170,255,0,.4)}
 .fb-status.err{color:var(--hot)}

@@ -190,9 +190,46 @@ function initAnimations() {
 //    (and are emailed to you / visible in your Formspree dashboard).
 //  • A copy is always kept in localStorage too, so the admin "Feedback" tab
 //    still works and nothing is lost if the network call fails.
+function initStarRating() {
+  const wrap = $('#starRating');
+  if (!wrap) return;
+  const stars = Array.from(wrap.querySelectorAll('.star'));
+  const hidden = $('#ratingValue');
+  const text = $('#ratingText');
+  const labels = { 1: '★ Poor', 2: '★★ Needs work', 3: '★★★ Okay', 4: '★★★★ Great', 5: '★★★★★ Loved it' };
+  let current = +(hidden.value || 5);
+
+  const paint = (n) => {
+    stars.forEach((s) => s.classList.toggle('on', +s.dataset.val <= n));
+    if (text) text.textContent = labels[n] || 'Tap to rate';
+  };
+  const set = (n) => {
+    current = n;
+    hidden.value = n;
+    stars.forEach((s) => s.setAttribute('aria-checked', String(+s.dataset.val === n)));
+    paint(n);
+  };
+
+  stars.forEach((s) => {
+    const val = +s.dataset.val;
+    s.addEventListener('mouseenter', () => paint(val));
+    s.addEventListener('focus', () => paint(val));
+    s.addEventListener('click', () => set(val));
+  });
+  wrap.addEventListener('mouseleave', () => paint(current));
+  // keyboard arrows
+  wrap.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); set(Math.min(5, current + 1)); stars[current - 1]?.focus(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); set(Math.max(1, current - 1)); stars[current - 1]?.focus(); }
+  });
+
+  set(current); // initial paint (default 5)
+}
+
 function initFeedback() {
   const form = $('#feedbackForm');
   if (!form) return;
+  initStarRating();
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const status = $('#fbStatus');
@@ -231,6 +268,7 @@ function initFeedback() {
         });
         if (res.ok) {
           form.reset();
+          initStarRating();
           status.textContent = '✓ Thanks! Your feedback was sent.';
           status.className = 'fb-status ok';
         } else {
@@ -246,6 +284,7 @@ function initFeedback() {
     } else {
       // No Formspree id configured -> local-only mode
       form.reset();
+      initStarRating();
       status.textContent = '✓ Thanks! Your feedback was recorded.';
       status.className = 'fb-status ok';
     }
