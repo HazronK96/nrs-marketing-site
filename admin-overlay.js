@@ -170,7 +170,8 @@
     if (!list.length) { wrap.innerHTML = '<p class="empty">No feedback yet. Submissions from the site\'s feedback form appear here.</p>'; return; }
     wrap.innerHTML = '';
     list.slice().reverse().forEach(f => {
-      const stars = '★'.repeat(+f.rating || 0) + '☆'.repeat(5 - (+f.rating || 0));
+      const r = +f.rating || 0;
+      const stars = `<span class="on">${'★'.repeat(r)}</span>${'★'.repeat(5 - r)}`;
       const c = document.createElement('div'); c.className = 'fb-card';
       c.innerHTML = `<div class="fb-head"><strong>${esc(f.name)}</strong><span class="fb-stars">${stars}</span></div>
         <div class="fb-sub">${esc(f.email || 'no email')} · ${new Date(f.date).toLocaleString()}</div><p>${esc(f.message)}</p>`;

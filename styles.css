@@ -309,7 +309,8 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 .feedback-list .empty{color:var(--ink-soft)}
 .fb-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
 .fb-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.fb-stars{color:var(--lime)}
+.fb-stars{font-size:1.05rem;letter-spacing:1px;color:rgba(154,166,214,.3)}
+.fb-stars .on{color:#ffd34d;text-shadow:0 0 10px rgba(255,211,77,.6)}
 .fb-sub{color:var(--ink-soft);font-size:.82rem;margin:4px 0 10px}
 .fb-card p{color:var(--ink);margin:0}
 
