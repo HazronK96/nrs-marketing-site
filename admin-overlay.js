@@ -23,7 +23,8 @@
     const d = new Date(iso);
     if (isNaN(d)) return esc(iso);
     const date = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    const time = d.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true });
+    const time = d.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true })
+      .replace(/\s?(am|pm)/i, (m) => ' ' + m.trim().toUpperCase());
     return `${date}, ${time}`;
   };
 
