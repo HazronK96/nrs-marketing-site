@@ -18,6 +18,14 @@
   const esc2 = (s) => String(s ?? '').replace(/"/g, '&quot;');
   const escA = (s) => String(s ?? '').replace(/</g, '&lt;');
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // Singapore-style: "27 October 2026, 11:26 PM" (day month year, then time)
+  const fmtDate = (iso) => {
+    const d = new Date(iso);
+    if (isNaN(d)) return esc(iso);
+    const date = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const time = d.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return `${date}, ${time}`;
+  };
 
   let content = {};
 
@@ -174,7 +182,7 @@
       const stars = `<span class="on">${'★'.repeat(r)}</span>${'★'.repeat(5 - r)}`;
       const c = document.createElement('div'); c.className = 'fb-card';
       c.innerHTML = `<div class="fb-head"><strong>${esc(f.name)}</strong><span class="fb-stars">${stars}</span></div>
-        <div class="fb-sub">${esc(f.email || 'no email')} · ${new Date(f.date).toLocaleString()}</div><p>${esc(f.message)}</p>`;
+        <div class="fb-sub">${esc(f.email || 'no email')} · ${fmtDate(f.date)}</div><p>${esc(f.message)}</p>`;
       wrap.appendChild(c);
     });
   }

@@ -313,12 +313,19 @@
       card.className = 'fb-card';
       card.innerHTML = `<div class="fb-head"><strong>${esc(f.name)}</strong>
         <span class="fb-stars">${stars}</span></div>
-        <div class="fb-sub">${esc(f.email || 'no email')} · ${new Date(f.date).toLocaleString()}</div>
+        <div class="fb-sub">${esc(f.email || 'no email')} · ${fmtDate(f.date)}</div>
         <p>${esc(f.message)}</p>`;
       wrap.appendChild(card);
     });
   }
   function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  // Singapore-style: "27 October 2026, 11:26 PM"
+  function fmtDate(iso){
+    const d=new Date(iso); if(isNaN(d)) return esc(iso);
+    const date=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const time=d.toLocaleTimeString('en-GB',{hour:'numeric',minute:'2-digit',hour12:true});
+    return `${date}, ${time}`;
+  }
   function exportCSV() {
     const list = loadFeedback();
     const rows = [['date','name','email','rating','message']].concat(
