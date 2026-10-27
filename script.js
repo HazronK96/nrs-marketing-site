@@ -131,7 +131,12 @@ function render(c) {
   // CTA button
   if (c.cta?.button) {
     const b = $('#ctaButton');
-    if (b) { b.textContent = c.cta.button.label; b.href = c.cta.button.href; }
+    if (b) {
+      b.textContent = c.cta.button.label;
+      b.href = c.cta.button.href;
+      if (c.cta.button.external) { b.target = '_blank'; b.rel = 'noopener'; }
+      else { b.removeAttribute('target'); b.removeAttribute('rel'); }
+    }
   }
 
   // Footer links (respect visible flag)

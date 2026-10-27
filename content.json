@@ -107,7 +107,7 @@
     "eyebrow": "▶ Ready player one",
     "heading": "Press play on the news.",
     "sub": "Stream every drop that matters — summarised, sourced, and built for gamers.",
-    "button": { "label": "Launch the News Release System ↗", "href": "#access" }
+    "button": { "label": "Launch the News Release System ↗", "href": "https://nrs.rabutenri.com/", "external": true }
   },
   "footer": {
     "copyright": "News Release System",
