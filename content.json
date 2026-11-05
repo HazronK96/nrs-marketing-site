@@ -4,8 +4,8 @@
     "mark": "N"
   },
   "nav": [
-    { "label": "Features", "href": "#features" },
     { "label": "Video", "href": "#watch" },
+    { "label": "Features", "href": "#features" },
     { "label": "Getting Started", "href": "#how" },
     { "label": "For gamers", "href": "#audience" },
     { "label": "Launch", "href": "#access" },
