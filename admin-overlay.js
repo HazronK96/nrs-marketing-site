@@ -9,7 +9,18 @@
   const REQUIRE_LOGIN = true;          // set false to skip the login popup
   const ADMIN_PASSWORD = 'admin123';   // change to your own password
   const CONTENT_KEY = 'nrs_content';
+  const CONTENT_BASE_SIG_KEY = 'nrs_content_base_sig';
   const FEEDBACK_KEY = 'nrs_feedback';
+
+  // Signature of the base content.json (must match the one in script.js) so the
+  // live site can tell when the file changed since these edits were saved.
+  function sig(obj) {
+    const s = JSON.stringify(obj);
+    let h = 0;
+    for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; }
+    return String(h);
+  }
+  let fileBaseSig = null; // signature of content.json as last fetched from disk
 
   // ---------------- helpers ----------------
   const $ = (id) => document.getElementById(id);
@@ -30,7 +41,12 @@
 
   let content = {};
 
-  async function fetchFile() { const r = await fetch('content.json', { cache: 'no-store' }); return r.json(); }
+  async function fetchFile() {
+    const r = await fetch('content.json', { cache: 'no-store' });
+    const data = await r.json();
+    fileBaseSig = sig(data); // remember what the file looked like
+    return data;
+  }
   async function loadContent(forceFile) {
     if (!forceFile) { const s = localStorage.getItem(CONTENT_KEY); if (s) { try { return JSON.parse(s); } catch (e) {} } }
     return fetchFile();
@@ -156,9 +172,15 @@
     });
   }
 
-  function apply() {
+  async function apply() {
     collect();
     localStorage.setItem(CONTENT_KEY, JSON.stringify(content));
+    // Record the signature of the base content.json these edits were made against,
+    // so the live site keeps them until the file itself changes (then the file wins).
+    try {
+      if (fileBaseSig == null) { await fetchFile(); }
+      if (fileBaseSig != null) localStorage.setItem(CONTENT_BASE_SIG_KEY, fileBaseSig);
+    } catch (e) { /* if the file can't be read, just skip the signature */ }
     $('ovNote').textContent = '✓ Applied — refreshing site…';
     // Re-render the live page if script.js exposed a renderer, else reload
     if (typeof window.NRS_render === 'function') { window.NRS_render(content); setTimeout(() => $('ovNote').textContent = '', 3000); }
