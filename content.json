@@ -4,8 +4,8 @@
     "mark": "N"
   },
   "nav": [
+    { "label": "Video", "href": "#watch" },
     { "label": "Features", "href": "#features" },
-    { "label": "Watch", "href": "#watch" },
     { "label": "Getting Started", "href": "#how" },
     { "label": "For gamers", "href": "#audience" },
     { "label": "Launch", "href": "#access" },
@@ -36,7 +36,7 @@
     ]
   },
   "watch": {
-    "eyebrow": "▶ Watch",
+    "eyebrow": "▶ Video",
     "heading": "See it in motion",
     "sub": "A 30-second look at the News Release System — summarised, sourced, built for gamers."
   },

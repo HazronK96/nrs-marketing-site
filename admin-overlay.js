@@ -43,9 +43,9 @@
       ['Hero — title (lead)', 'hero.titleLead'], ['Hero — title (highlight)', 'hero.titleHighlight'],
       ['Hero — tagline', 'hero.tagline'], ['Hero — subtext', 'hero.sub', 'area'],
     ]],
-    ['Trust bar & Watch', [
-      ['Trust bar — heading', 'trustbar.heading'], ['Watch — eyebrow', 'watch.eyebrow'],
-      ['Watch — heading', 'watch.heading'], ['Watch — subtext', 'watch.sub', 'area'],
+    ['Trust bar & Video', [
+      ['Trust bar — heading', 'trustbar.heading'], ['Video — eyebrow', 'watch.eyebrow'],
+      ['Video — heading', 'watch.heading'], ['Video — subtext', 'watch.sub', 'area'],
     ]],
     ['Features (section text)', [
       ['Features — eyebrow', 'features.eyebrow'], ['Features — heading', 'features.heading'],
