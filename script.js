@@ -6,6 +6,7 @@
    ========================================================================= */
 
 const CONTENT_KEY = 'nrs_content';
+const CONTENT_BASE_SIG_KEY = 'nrs_content_base_sig';
 const FEEDBACK_KEY = 'nrs_feedback';
 
 // --- helpers ---
@@ -20,19 +21,43 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 const getPath = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
 
 // Load content: start from content.json, then overlay admin edits from localStorage
+// A tiny, stable signature of the base content.json. Used to detect when the
+// file has changed since admin edits were saved, so file updates always win.
+function sig(obj) {
+  const s = JSON.stringify(obj);
+  let h = 0;
+  for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; }
+  return String(h);
+}
+
 async function loadContent() {
-  let base = {};
+  let fileContent = null;
   try {
     const res = await fetch('content.json', { cache: 'no-store' });
-    base = await res.json();
+    fileContent = await res.json();
   } catch (e) {
     console.warn('Could not load content.json (are you viewing over a server?)', e);
   }
+
+  // Overlay admin edits from localStorage — BUT only if they were based on the
+  // current content.json. If the file changed since (e.g. a new deploy/pull),
+  // the stale saved copy is discarded so file edits always show up.
   try {
     const saved = localStorage.getItem(CONTENT_KEY);
-    if (saved) base = JSON.parse(saved);
-  } catch (e) { /* ignore bad saved data */ }
-  return base;
+    if (saved) {
+      const fileSig = fileContent ? sig(fileContent) : null;
+      const savedSig = localStorage.getItem(CONTENT_BASE_SIG_KEY);
+      if (fileSig && savedSig && savedSig !== fileSig) {
+        // content.json changed underneath the saved edits → drop them, use the file
+        localStorage.removeItem(CONTENT_KEY);
+        localStorage.removeItem(CONTENT_BASE_SIG_KEY);
+      } else {
+        return JSON.parse(saved);
+      }
+    }
+  } catch (e) { /* ignore bad saved data, fall through to file */ }
+
+  return fileContent || {};
 }
 
 function render(c) {

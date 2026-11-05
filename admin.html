@@ -74,7 +74,18 @@
   const REQUIRE_LOGIN = true;          // set to false to skip the login gate
   const ADMIN_PASSWORD = 'admin123';   // change this to your own password
   const CONTENT_KEY = 'nrs_content';
+  const CONTENT_BASE_SIG_KEY = 'nrs_content_base_sig';
   const FEEDBACK_KEY = 'nrs_feedback';
+
+  // Signature of the base content.json (must match script.js) so the live site
+  // can detect when the file changed since these edits were saved.
+  function sig(obj) {
+    const s = JSON.stringify(obj);
+    let h = 0;
+    for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; }
+    return String(h);
+  }
+  let fileBaseSig = null;
 
   /* ====================== LOGIN GATE ====================== */
   const gate = document.getElementById('gate');
@@ -96,7 +107,9 @@
 
   async function fetchFile() {
     const res = await fetch('content.json', { cache: 'no-store' });
-    return res.json();
+    const data = await res.json();
+    fileBaseSig = sig(data);
+    return data;
   }
   async function loadContent(forceFile) {
     if (!forceFile) {
@@ -280,9 +293,15 @@
     });
   }
 
-  function apply() {
+  async function apply() {
     collectFields();
     localStorage.setItem(CONTENT_KEY, JSON.stringify(content));
+    // Record the base content.json signature so the live site keeps these edits
+    // until the file itself changes (then the file wins — no console needed).
+    try {
+      if (fileBaseSig == null) { await fetchFile(); }
+      if (fileBaseSig != null) localStorage.setItem(CONTENT_BASE_SIG_KEY, fileBaseSig);
+    } catch (e) { /* skip signature if file can't be read */ }
     const note = document.getElementById('saveNote');
     note.textContent = '✓ Applied. Open/refresh the site to see changes.';
     setTimeout(() => note.textContent = '', 4000);
