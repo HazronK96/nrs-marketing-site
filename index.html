@@ -100,11 +100,23 @@
     </div>
   </section>
 
-  <!-- ===== Watch / video ===== -->
-  <section class="section" id="watch">
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow" data-bind="watch.eyebrow">▶ Watch</span>
+        <span class="eyebrow" data-bind="features.eyebrow">Features</span>
+        <h2 data-bind="features.heading"></h2>
+        <p data-bind="features.sub"></p>
+      </div>
+      <div class="feature-grid" id="featureGrid"><!-- features injected --></div>
+    </div>
+  </section>
+
+  <!-- ===== Video (formerly 'Watch') ===== -->
+  <section class="section section-alt" id="watch">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-bind="watch.eyebrow">▶ Video</span>
         <h2 data-bind="watch.heading">See it in motion</h2>
         <p data-bind="watch.sub"></p>
       </div>
@@ -115,18 +127,6 @@
       </div>
       <!-- Dev note (not shown): to export a shareable video, open showcase.html full-screen and screen-record one 30s loop. -->
 
-    </div>
-  </section>
-
-  <!-- ===== Features ===== -->
-  <section class="section section-alt" id="features">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow" data-bind="features.eyebrow">Features</span>
-        <h2 data-bind="features.heading"></h2>
-        <p data-bind="features.sub"></p>
-      </div>
-      <div class="feature-grid" id="featureGrid"><!-- features injected --></div>
     </div>
   </section>
 
