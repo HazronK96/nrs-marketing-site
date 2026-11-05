@@ -302,10 +302,27 @@ window.NRS_render = function (c) {
   initAnimations();
 };
 
+// Back-to-top button: show after scrolling past ~1 viewport, smooth-scroll up on click
+function initBackToTop() {
+  const btn = $('#toTop');
+  if (!btn) return;
+  const toggle = () => {
+    if (window.scrollY > window.innerHeight * 0.6) btn.classList.add('show');
+    else btn.classList.remove('show');
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle(); // set initial state
+  btn.addEventListener('click', () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+}
+
 // Boot
 (async function () {
   const content = await loadContent();
   render(content);
   initAnimations();
   initFeedback();
+  initBackToTop();
 })();
