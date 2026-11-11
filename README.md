@@ -53,13 +53,29 @@ For 1 & 2:
    (A local copy is still kept for the admin Feedback tab.)
 - Leave `formspreeId` blank to stay in local-only mode (fine for a demo).
 
-## How to run it
+## How to run it locally
 
 Because the site **fetches `content.json`**, run it from a local server (not by
 double-clicking the file, which browsers block for `fetch`):
 
 - **In VS Code:** install the *Live Server* extension → right-click `index.html` → *Open with Live Server*.
-- **Online:** GitHub Pages (Settings → Pages → Deploy from branch → `main`) serves it fine.
+
+## Deploying (free hosting)
+
+The site is 100% static (no build step, no backend), so any static host works for free.
+
+### Netlify — primary
+Two ways:
+- **Connect the repo (auto-redeploys on push):** Netlify → *Add new site → Import an existing project* → GitHub → `nrs-marketing-site`. Leave **Build command blank** and **Publish directory** = `.` → Deploy.
+- **Drag & drop:** download/zip the project folder and drop it on https://app.netlify.com/drop
+- Rename the site under *Site settings → Change site name*.
+
+### GitHub Pages — backup
+- Repo → **Settings → Pages → Build and deployment → Source: Deploy from a branch** → Branch `main`, folder `/ (root)` → **Save**.
+- Live at `https://<username>.github.io/nrs-marketing-site/` in ~1–2 minutes; auto-redeploys on every push to `main`.
+- A `.nojekyll` file is included so GitHub Pages serves every file as-is (no Jekyll processing).
+
+Both serve over HTTPS, so `fetch('content.json')` works correctly.
 
 ## The video
 
