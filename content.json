@@ -30,7 +30,6 @@
     "items": [
       "⚡ Lightning feed",
       "📝 Key-point summaries",
-      "🔗 Linked sources",
       "🔖 Bookmarks & profiles",
       "✍️ Create & publish"
     ]
@@ -47,7 +46,6 @@
     "items": [
       { "icon": "🎮", "title": "Multi-platform channels", "text": "Jump straight to Nintendo, PlayStation, Xbox, PC or Reviews — or stream everything in one unified feed." },
       { "icon": "⭐", "title": "Key-point summaries", "text": "Every release leads with a bullet-point briefing, so you grasp the story in seconds before diving deeper." },
-      { "icon": "🔗", "title": "Verified sources", "text": "Each story links back to its original outlets — read with confidence and follow the trail yourself." },
       { "icon": "🔖", "title": "Bookmarks & profiles", "text": "Save stories for later and build a profile around the topics and platforms you care about most." },
       { "icon": "✍️", "title": "Create & publish", "text": "Authors draft and publish releases through a dedicated creation flow, with tasks to manage the pipeline." },
       { "icon": "🔥", "title": "Trending & topics", "text": "Discover what the community is reading with Trending News and topics like Esports and Indie Games." }
